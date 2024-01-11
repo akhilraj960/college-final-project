@@ -1,0 +1,52 @@
+.textfield {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  background-color: transparent;
+}
+
+.textfield label {
+  color: #080808;
+  font-size: 14px;
+  margin-bottom: 5px;
+  background-color: transparent;
+  text-transform: capitalize;
+}
+
+.textfield .inputcontainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #475569;
+  border-radius: 5px;
+  background-color: white;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.inputcontainer:focus-within {
+  border-color: #5c90ff;
+  box-shadow: 0 0 5px rgba(92, 144, 255, 0.7);
+}
+
+.textfield input {
+  width: 100%;
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #333;
+}
+
+.textfield .icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #475569;
+}
+
+
