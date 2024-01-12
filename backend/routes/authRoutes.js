@@ -66,9 +66,13 @@ const userLogin = async (req, res) => {
     };
 
     // Generate a JWT token for authentication
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     // Respond with the token or any additional user data
     res.status(200).json({ token, userData });
@@ -91,6 +95,8 @@ const AdminLogin = async (req, res) => {
     // Find the user by email
     const user = await Admin.findOne({ email });
 
+    console.log(user);
+
     // Check if the user exists
     if (!user) {
       return res.status(401).send("Invalid credentials");
@@ -108,14 +114,16 @@ const AdminLogin = async (req, res) => {
       name: user.name,
       email,
       role: user.role,
-      phone: user.phone,
-      addresses: user.addresses,
     };
 
     // Generate a JWT token for authentication
-    const token = jwt.sign({ userId: user._id }, "your-secret-key", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     // Respond with the token or any additional user data
     res.status(200).json({ token, userData });
@@ -135,17 +143,18 @@ const getStatus = async (req, res) => {
       return res.json({ success: false, message: "Login again" });
     }
 
-    jwt.verify(token, "JWT_SECRET", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.json({ success: false, message: "Invalid token" });
       }
 
-      const { userId, username } = decoded;
+      console.log(decoded);
+
+      const { userId, username, role } = decoded;
 
       return res.json({
         success: true,
-        message: "Token is valid",
-        user: { userId, username },
+        role: role,
       });
     });
   } catch (error) {
@@ -154,6 +163,4 @@ const getStatus = async (req, res) => {
   }
 };
 
-module.exports = getStatus;
-
-module.exports = { userRegister, userLogin };
+module.exports = { userRegister, userLogin, AdminLogin, getStatus };

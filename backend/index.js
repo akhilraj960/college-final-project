@@ -2,7 +2,7 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const { userLogin, userRegister } = require("./routes/authRoutes");
+const { userLogin, userRegister, AdminLogin, getStatus } = require("./routes/authRoutes");
 
 const app = express();
 
@@ -26,6 +26,9 @@ app.use(cors());
 // authRoutes
 app.post("/login", userLogin);
 app.post("/register", userRegister);
+app.get('/getstatus',getStatus)
+
+app.post("/admin/login", AdminLogin);
 
 app.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);

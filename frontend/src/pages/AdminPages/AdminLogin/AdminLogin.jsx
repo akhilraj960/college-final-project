@@ -1,25 +1,34 @@
-import React, { useState } from "react";
-import styles from "../FormStyles.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "./AdminLogin.module.css";
 
 import validator from "validator";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
-import axiosInstance from "../../../config/axiosInstance";
+import { adminLogin } from "../../../redux/features/Auth/authSlice";
 
-const Register = () => {
+const AdminLogin = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    cPassword: "",
+    email: "admin@gmail.com",
+    password: "admin@admin",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { name, email, password, cPassword } = formData;
+  const { email, password } = formData;
+
+  const { isAdmin } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAdmin) {
+      navigate("/admin");
+    }
+  },[isAdmin]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +39,8 @@ const Register = () => {
     e.preventDefault();
 
     // Validation checks
-    if (name === "" || email === "" || password === "" || cPassword === "") {
+    if (email === "" || password === "") {
       setErrorMessage("Fill all the fields.");
-      return;
-    }
-
-    if (name.length < 4) {
-      setErrorMessage("Name must be 4 letters or greater.");
       return;
     }
 
@@ -50,37 +54,20 @@ const Register = () => {
       return;
     }
 
-    if (password !== cPassword) {
-      setErrorMessage("Password and confirm password do not match.");
-      return;
-    }
-
-    setErrorMessage(""); 
-
-    try {
-      const response = await axiosInstance.post("/register", formData);
-      navigate("/login");
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    setErrorMessage("");
+    dispatch(adminLogin(formData));
+    navigate("/admin");
   };
   return (
     <div className={styles.formcontainer}>
       <form onSubmit={handleSubmit}>
         <div className={styles.title}>
-          <h2>Sign Up</h2>
-          <p>welcome</p>
+          <h2>Admin Login</h2>
+          <p>welcome back admin</p>
         </div>
         {errorMessage && <div className={styles.errortext}>{errorMessage}</div>}
 
         <div className={styles.inputcontainer}>
-          <Input
-            label={"name"}
-            name="name"
-            type="text"
-            value={name}
-            onChange={handleChange}
-          />
           <Input
             label={"email"}
             name="email"
@@ -95,23 +82,11 @@ const Register = () => {
             value={password}
             onChange={handleChange}
           />
-          <Input
-            label={"confirm password"}
-            name="cPassword"
-            type="password"
-            value={cPassword}
-            onChange={handleChange}
-          />
         </div>
-        <Button type="submit">Sign Up</Button>
-        <span>
-          <p>
-            Already have an Account? <Link to={"/login"}>Login Now</Link>
-          </p>
-        </span>
+        <Button type="submit">Login</Button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default AdminLogin;

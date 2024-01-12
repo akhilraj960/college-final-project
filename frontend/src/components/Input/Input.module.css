@@ -14,7 +14,7 @@
   text-transform: capitalize;
 }
 
-.textfield .inputcontainer {
+.inputcontainer {
   position: relative;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
   color: #333;
 }
 
-.textfield .icon {
+.icon {
   position: absolute;
   top: 50%;
   right: 12px;
@@ -48,5 +48,3 @@
   cursor: pointer;
   color: #475569;
 }
-
-

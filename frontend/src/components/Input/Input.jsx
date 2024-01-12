@@ -23,7 +23,7 @@ const Input = ({ type, name, onChange, value, label }) => {
           onChange={onChange}
         />
         {type === "password" && (
-          <div className="icon" onClick={handleTogglePassword}>
+          <div className={styles.icon} onClick={handleTogglePassword}>
             {showPassword ? (
               <IoEyeOutline size={20} />
             ) : (
