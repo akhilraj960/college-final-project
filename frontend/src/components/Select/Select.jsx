@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Select.module.css";
 
-const Select = ({ label, option, name, value, onChange }) => {
-  console.log(option);
+const Select = ({ label, option = [], name, value, onChange }) => {
   return (
     <div className={styles.textfield}>
-      <label>{label || null}</label>
+      <label>{label}</label>
       <div className={styles.inputcontainer}>
         <select
           className={styles.select}
@@ -13,18 +12,12 @@ const Select = ({ label, option, name, value, onChange }) => {
           name={name}
           onChange={onChange}
         >
-          {!option ? (
-            <option>select {label}</option>
-          ) : (
-            <>
-              {!value && <option>Select {label}</option>}
-              {option.map((value, index) => (
-                <option key={index} value={value}>
-                  {value.name}
-                </option>
-              ))}
-            </>
-          )}
+          {value === "" && <option>{`Select ${label}`}</option>}
+          {option.map((item, index) => (
+            <option key={index} value={item.value}>
+              {item.name}
+            </option>
+          ))}
         </select>
       </div>
     </div>

@@ -2,19 +2,37 @@ import React, { useState } from "react";
 import styles from "./AddCategory.module.css";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
+import axiosInstance from "../../../config/axiosInstance";
 
 const AddCategory = () => {
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
 
-    const [category,setCategory] = useState({
-        
-    })
+  const addCategory = (e) => {
+    e.preventDefault();
+    console.log(category);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: name === "image" ? files[0] : value,
-    }));
+    axiosInstance
+      .post("/admin/addcategory", { category })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const addSubCategory = (e) => {
+    e.preventDefault();
+
+    axiosInstance
+      .post("/admin/addsubcategory", { subCategory })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -26,23 +44,22 @@ const AddCategory = () => {
             label={"new category"}
             name={"name"}
             type={"text"}
-            value={name}
-            onChange={handleChange}
+            value={category.name}
+            onChange={(e) => setCategory(e.target.value)}
           />
-          <Button>Add Category</Button>
+          <Button onClick={addCategory}>Add Category</Button>
         </div>
         <div className={styles.inputcontainer}>
           <Input
             label={"new  Sub category"}
             name={"name"}
             type={"text"}
-            value={name}
-            onChange={handleChange}
+            value={subCategory}
+            onChange={(e) => setSubCategory(e.target.value)}
           />
-          <Button>Add Sub Category</Button>
+          <Button onClick={addSubCategory}>Add Sub Category</Button>
         </div>
       </div>
-      <h3>All Categories</h3>
     </div>
   );
 };

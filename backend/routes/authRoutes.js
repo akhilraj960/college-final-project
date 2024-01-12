@@ -83,7 +83,7 @@ const userLogin = async (req, res) => {
 };
 
 const AdminLogin = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { email, password } = req.body;
 
@@ -95,7 +95,7 @@ const AdminLogin = async (req, res) => {
     // Find the user by email
     const user = await Admin.findOne({ email });
 
-    console.log(user);
+    // console.log(user);
 
     // Check if the user exists
     if (!user) {
@@ -147,8 +147,6 @@ const getStatus = async (req, res) => {
       if (err) {
         return res.json({ success: false, message: "Invalid token" });
       }
-
-      console.log(decoded);
 
       const { userId, username, role } = decoded;
 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddProduct.module.css";
 import Input from "../../../components/Input/Input";
 import Select from "../../../components/Select/Select";
 import Button from "../../../components/Button/Button";
+import axiosInstance from "../../../config/axiosInstance";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,10 @@ const AddProduct = () => {
     stock: "",
     image: null,
   });
+
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const {
     name,
@@ -33,6 +38,29 @@ const AddProduct = () => {
     { id: 2, name: "Bob" },
     { id: 3, name: "Charlie" },
   ];
+
+  useEffect(() => {
+    axiosInstance
+      .get("/getbrand")
+      .then((response) => {
+        setBrands(response.data.brands);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axiosInstance
+      .get("/getcategories")
+      .then((response) => {
+        setCategories(response.data.categories);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axiosInstance.get("/getsubcategories").then((response) => {
+      setSubCategories(response.data.subcategories);
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -62,21 +90,21 @@ const AddProduct = () => {
           <div className={styles.inputsubcontainer}>
             <Select
               label={"brand"}
-              option={users}
+              option={brands}
               value={brand}
               name={"brand"}
               onChange={handleChange}
             />
             <Select
               label={"Category"}
-              option={users}
+              option={categories}
               value={category}
               name={"category"}
               onChange={handleChange}
             />
             <Select
               label={"Sub Category"}
-              option={users}
+              option={subCategories}
               value={subcategory}
               name={"subcategory"}
               onChange={handleChange}

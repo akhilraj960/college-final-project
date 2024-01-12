@@ -10,16 +10,16 @@ const ProductHeader = () => {
         <nav>
           <ul>
             <li>
-              <Link to={"/admin/product"}>Product</Link>
+              <Link to={"/admin/product"}>products</Link>
             </li>{" "}
             <li>
-              <Link to={"addproduct"}>Add Product</Link>
+              <Link to={"addproduct"}>add product</Link>
             </li>{" "}
             <li>
-              <Link to={"addcategory"}>Add Category</Link>
+              <Link to={"addcategory"}>add category</Link>
             </li>{" "}
             <li>
-              <Link to={"addsubcategory"}>Add Sub Cagetory</Link>
+              <Link to={"createbrand"}>create new brand</Link>
             </li>
           </ul>
         </nav>

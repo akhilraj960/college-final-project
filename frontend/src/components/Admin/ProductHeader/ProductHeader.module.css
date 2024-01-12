@@ -17,3 +17,7 @@
   gap: 2.6rem;
   justify-content: space-evenly;
 }
+
+.productheader a{
+  text-transform: uppercase;
+}
