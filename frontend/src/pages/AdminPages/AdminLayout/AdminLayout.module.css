@@ -23,11 +23,16 @@
   padding: 1rem;
 }
 
-.admincontainer{
+.admincontainer {
   padding: 1rem;
   margin: 1rem;
   width: 100%;
   border-radius: 5px;
   background-color: white;
   color: black;
+  overflow: scroll;
+}
+
+.admincontainer::-webkit-scrollbar {
+  display: none;
 }

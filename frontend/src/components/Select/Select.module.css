@@ -30,7 +30,7 @@
   box-shadow: 0 0 5px rgba(92, 144, 255, 0.7);
 }
 
-.textfield input{
+.select {
   width: 100%;
   flex: 1;
   padding: 0.8rem;
@@ -39,13 +39,4 @@
   outline: none;
   background-color: transparent;
   color: #333;
-}
-
-.icon {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #475569;
 }
