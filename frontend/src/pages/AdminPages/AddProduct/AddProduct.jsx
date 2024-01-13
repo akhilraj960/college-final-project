@@ -11,7 +11,7 @@ const AddProduct = () => {
     brand: "",
     category: "",
     subcategory: "",
-    discription: "",
+    description: "",
     price: "",
     discountprice: "",
     stock: "",
@@ -27,17 +27,12 @@ const AddProduct = () => {
     brand,
     category,
     subcategory,
-    discountprice,
-    discription,
+    description,
     price,
+    discountprice,
     stock,
+    image,
   } = formData;
-
-  const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-    { id: 3, name: "Charlie" },
-  ];
 
   useEffect(() => {
     axiosInstance
@@ -46,20 +41,26 @@ const AddProduct = () => {
         setBrands(response.data.brands);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching brands:", error);
       });
+
     axiosInstance
       .get("/getcategories")
       .then((response) => {
         setCategories(response.data.categories);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching categories:", error);
       });
 
-    axiosInstance.get("/getsubcategories").then((response) => {
-      setSubCategories(response.data.subcategories);
-    });
+    axiosInstance
+      .get("/getsubcategories")
+      .then((response) => {
+        setSubCategories(response.data.subcategories);
+      })
+      .catch((error) => {
+        console.error("Error fetching subcategories:", error);
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -70,8 +71,20 @@ const AddProduct = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await axiosInstance.post("/admin/addproduct", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // Optionally, you can handle the success here (e.g., show a success message)
+      console.log("Product added successfully!");
+    } catch (error) {
+      // Handle errors (e.g., show an error message)
+      console.error("Error adding product:", error);
+    }
   };
 
   return (
@@ -80,16 +93,15 @@ const AddProduct = () => {
         <h2>Add New Product</h2>
         <div className={styles.inputcontainer}>
           <Input
-            label={"product name"}
+            label={"Product Name"}
             name={"name"}
             type={"text"}
             value={name}
             onChange={handleChange}
           />
-
           <div className={styles.inputsubcontainer}>
             <Select
-              label={"brand"}
+              label={"Brand"}
               option={brands}
               value={brand}
               name={"brand"}
@@ -110,28 +122,28 @@ const AddProduct = () => {
               onChange={handleChange}
             />
             <Input
-              label={"discription"}
+              label={"Description"}
               type={"text"}
-              name={"discription"}
-              value={discription}
+              name={"description"}
+              value={description}
               onChange={handleChange}
             />
             <Input
-              label={"price"}
+              label={"Price"}
               type={"number"}
               name={"price"}
               value={price}
               onChange={handleChange}
             />
             <Input
-              label={"discount price"}
+              label={"Discount Price"}
               type={"number"}
               name={"discountprice"}
               value={discountprice}
               onChange={handleChange}
             />
             <Input
-              label={"stock"}
+              label={"Stock"}
               type={"number"}
               name={"stock"}
               value={stock}

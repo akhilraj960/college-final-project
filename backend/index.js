@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUplaod = require("express-fileupload");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -36,6 +37,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(fileUplaod());
 
 // authRoutes
 app.post("/login", userLogin);

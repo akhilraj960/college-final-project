@@ -1,5 +1,6 @@
 const Brand = require("../models/Brand");
 const Category = require("../models/Category");
+const Product = require("../models/Product");
 
 const SubCategory = require("../models/SubCategory");
 
@@ -94,10 +95,71 @@ const getSubCategory = (req, res) => {
 };
 
 const addProduct = async (req, res) => {
+  const image = req.body.image;
+
   try {
-    const image = req.files.image;
-    console.log(req.body);
-  } catch (error) {}
+    const {
+      name,
+      brand,
+      category,
+      subcategory,
+      discountprice,
+      discription,
+      price,
+      stock,
+    } = req.body;
+
+    // Assuming you have a product model (e.g., using Mongoose)
+    const newProduct = new Product({
+      name,
+      brand,
+      category,
+      subcategory,
+      discountprice,
+      discription,
+      price,
+      stock,
+      // Add other properties as needed
+    });
+
+    // Save the new product to the database
+    const savedProduct = await newProduct.save().then((data) => {
+      const imagePath = `./public/product-images/${data._id}.jpg`;
+
+      if (req.files.image) {
+        req.files.image.mv(imagePath, (err) => {
+          if (!err) {
+            console.log("Product added successfully:");
+            res.status(201).json({ message: "product saved" });
+          } else {
+            // Handle the error response for image upload failure
+            console.error("Error uploading image:", err);
+            res.status(500).json({ error: "Image upload failed" });
+          }
+        });
+      }
+    });
+
+    // const imagePath = `./public/product-images/${savedProduct._id}.jpg`;
+    // image.mv(imagePath, (err) => {
+    //   if (err) {
+    //     // Handle the error response for image upload failure
+    //     console.error("Error uploading image:", err);
+    //     res.status(500).json({ error: "Image upload failed" });
+    //     return; // Add a return statement to avoid executing the next block
+    //   }
+
+    //   // Handle further processing, such as additional image file handling if needed
+    //   // For example, you might want to process the image (resize, optimize, etc.)
+
+    //   // Send a response to the client
+    //   console.log("Product added successfully:", savedProduct);
+    //   res.status(201).json({ data: savedProduct });
+    // });
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 module.exports = {

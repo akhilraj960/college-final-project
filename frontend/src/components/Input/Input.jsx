@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from  "./Input.module.css";
+import styles from "./Input.module.css";
 
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 
-const Input = ({ type, name, onChange, value, label }) => {
+const Input = ({ type = "text", name, onChange, value, label }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
