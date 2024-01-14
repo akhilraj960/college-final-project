@@ -2,6 +2,7 @@ const express = require("express");
 const fileUplaod = require("express-fileupload");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
+const path = require('path')
 require("dotenv").config();
 const {
   userLogin,
@@ -17,6 +18,9 @@ const {
   getBrand,
   getCategory,
   getSubCategory,
+  editProduct,
+  getAllProducts,
+  getOneProduct,
 } = require("./routes/productRoues");
 
 const app = express();
@@ -46,6 +50,9 @@ app.get("/getstatus", getStatus);
 
 app.post("/admin/login", AdminLogin);
 app.post("/admin/addproduct", addProduct);
+app.put("/admin/editproduct", editProduct);
+app.get("/admin/getallproducts", getAllProducts);
+app.get("/admin/getoneproduct/:id",getOneProduct)
 
 app.post("/admin/addcategory", addCategory);
 app.post("/admin/addsubcategory", addSubCategory);
@@ -55,6 +62,8 @@ app.post("/admin/createbrand", createBrand);
 app.get("/getbrand", getBrand);
 app.get("/getcategories", getCategory);
 app.get("/getsubcategories", getSubCategory);
+
+app.use("/public", express.static(path.resolve(__dirname, "public")));
 
 app.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);

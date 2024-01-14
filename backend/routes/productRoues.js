@@ -95,8 +95,6 @@ const getSubCategory = (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const image = req.body.image;
-
   try {
     const {
       name,
@@ -104,26 +102,28 @@ const addProduct = async (req, res) => {
       category,
       subcategory,
       discountprice,
-      discription,
+      description,
       price,
       stock,
     } = req.body;
 
+    console.log(req.body);
+
     // Assuming you have a product model (e.g., using Mongoose)
     const newProduct = new Product({
-      name,
-      brand,
-      category,
-      subcategory,
-      discountprice,
-      discription,
-      price,
-      stock,
+      name: name,
+      brand: brand,
+      category: category,
+      subCategory: subcategory,
+      discountAmount: discountprice,
+      discription: description,
+      price: price,
+      stock: stock,
       // Add other properties as needed
     });
 
     // Save the new product to the database
-    const savedProduct = await newProduct.save().then((data) => {
+    await newProduct.save().then((data) => {
       const imagePath = `./public/product-images/${data._id}.jpg`;
 
       if (req.files.image) {
@@ -139,27 +139,107 @@ const addProduct = async (req, res) => {
         });
       }
     });
-
-    // const imagePath = `./public/product-images/${savedProduct._id}.jpg`;
-    // image.mv(imagePath, (err) => {
-    //   if (err) {
-    //     // Handle the error response for image upload failure
-    //     console.error("Error uploading image:", err);
-    //     res.status(500).json({ error: "Image upload failed" });
-    //     return; // Add a return statement to avoid executing the next block
-    //   }
-
-    //   // Handle further processing, such as additional image file handling if needed
-    //   // For example, you might want to process the image (resize, optimize, etc.)
-
-    //   // Send a response to the client
-    //   console.log("Product added successfully:", savedProduct);
-    //   res.status(201).json({ data: savedProduct });
-    // });
   } catch (error) {
     console.error("Error adding product:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+};
+
+const editProduct = async (req, res) => {
+  try {
+    const productId = req.params.productId; // Assuming you are passing the productId in the route
+
+    const {
+      name,
+      brand,
+      category,
+      subcategory,
+      discountprice,
+      discription,
+      price,
+      stock,
+    } = req.body;
+
+    // Assuming you have a product model (e.g., using Mongoose)
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      {
+        $set: {
+          name,
+          brand,
+          category,
+          subcategory,
+          discountprice,
+          discription,
+          price,
+          stock,
+          // Add other properties as needed
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      // If the product with the specified ID is not found
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Handle image update if a new image is provided
+    if (req.files && req.files.image) {
+      const imagePath = `./public/product-images/${updatedProduct._id}.jpg`;
+
+      req.files.image.mv(imagePath, (err) => {
+        if (!err) {
+          console.log("Product updated successfully:");
+          return res
+            .status(200)
+            .json({ message: "Product updated successfully" });
+        } else {
+          // Handle the error response for image upload failure
+          console.error("Error uploading image:", err);
+          return res.status(500).json({ error: "Image upload failed" });
+        }
+      });
+    } else {
+      // If no new image is provided, respond with a success message
+      console.log("Product updated successfully (without image change):");
+      res.status(200).json({ message: "Product updated successfully" });
+    }
+  } catch (error) {
+    console.error("Error editing product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const getAllProducts = async (req, res) => {
+  try {
+    // Assuming you have a Product model with find method
+    const products = await Product.find();
+
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const getOneProduct = (req, res) => {
+  const productId = req.params.id; // Assuming the product ID is passed in the request parameters
+
+  Product.findById(productId)
+    .then((product) => {
+      if (!product) {
+        // If no product is found, send a 404 Not Found response
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      // Send the product as a JSON response with a 200 status code
+      res.status(200).json({ product });
+    })
+    .catch((error) => {
+      console.error("Error fetching product:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
 };
 
 module.exports = {
@@ -170,4 +250,7 @@ module.exports = {
   getBrand,
   getCategory,
   getSubCategory,
+  editProduct,
+  getAllProducts,
+  getOneProduct,
 };

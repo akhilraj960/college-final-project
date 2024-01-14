@@ -15,6 +15,7 @@ import AdminProduct from "./pages/AdminPages/AdminProduct/AdminProduct";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
 import AddCategory from "./pages/AdminPages/AddCategory/AddCategory";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
+import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
 
 const App = () => {
   const { isAdmin, isLoggedIn } = useSelector((state) => state.auth);
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="addproduct" element={<AddProduct />} />
             <Route path="addcategory" element={<AddCategory />} />
             <Route path="createbrand" element={<NewBrand />} />
+            <Route path="editproduct/:id" element={<EditProduct />} />
           </Route>
         </Route>
       </Routes>
