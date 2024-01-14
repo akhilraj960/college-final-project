@@ -147,7 +147,11 @@ const addProduct = async (req, res) => {
 
 const editProduct = async (req, res) => {
   try {
-    const productId = req.params.productId; // Assuming you are passing the productId in the route
+    const productId = req.params.id; // Assuming you are passing the productId in the route
+
+    console.log("productId");
+
+    console.log(req.body);
 
     const {
       name,
@@ -155,7 +159,7 @@ const editProduct = async (req, res) => {
       category,
       subcategory,
       discountprice,
-      discription,
+      description,
       price,
       stock,
     } = req.body;
@@ -165,14 +169,14 @@ const editProduct = async (req, res) => {
       productId,
       {
         $set: {
-          name,
-          brand,
-          category,
-          subcategory,
-          discountprice,
-          discription,
-          price,
-          stock,
+          name: name,
+          brand: brand,
+          category: category,
+          subCategory: subcategory,
+          discountAmount: discountprice,
+          discription: description,
+          price: price,
+          stock: stock,
           // Add other properties as needed
         },
       },

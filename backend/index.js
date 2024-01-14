@@ -50,7 +50,7 @@ app.get("/getstatus", getStatus);
 
 app.post("/admin/login", AdminLogin);
 app.post("/admin/addproduct", addProduct);
-app.put("/admin/editproduct", editProduct);
+app.put("/admin/editproduct/:id", editProduct);
 app.get("/admin/getallproducts", getAllProducts);
 app.get("/admin/getoneproduct/:id",getOneProduct)
 

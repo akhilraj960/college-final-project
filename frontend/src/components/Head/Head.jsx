@@ -1,9 +1,19 @@
 import React from "react";
 import styles from "./Head.module.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Head = () => {
+  const navigate = useNavigate();
+
+  const handlLogout = (e) => {
+    e.preventDefault();
+
+
+    localStorage.setItem("token", "");
+    navigate("/");
+  };
+
   return (
     <header>
       <div className={styles.container}>
@@ -25,6 +35,11 @@ const Head = () => {
             </li>
             <li>
               <Link to={"/register"}>Register</Link>
+            </li>
+            <li>
+              <Link to={"/"} onClick={handlLogout}>
+                Logout
+              </Link>
             </li>
           </ul>
         </nav>

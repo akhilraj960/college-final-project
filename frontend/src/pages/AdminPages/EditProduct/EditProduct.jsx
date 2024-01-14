@@ -26,7 +26,7 @@ const EditProduct = (props) => {
 
   const { id } = useParams();
 
-  let {
+  const {
     name,
     brand,
     category,
@@ -82,8 +82,6 @@ const EditProduct = (props) => {
     });
   }, []);
 
-  console.log(id);
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prevData) => ({
@@ -93,7 +91,16 @@ const EditProduct = (props) => {
   };
 
   const handleSubmit = (e) => {
-    e.PreventDefault();
+    e.preventDefault();
+
+    axiosInstance
+      .put(`/admin/editproduct/${id}`, formData)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

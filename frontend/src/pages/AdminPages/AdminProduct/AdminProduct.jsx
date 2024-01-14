@@ -62,7 +62,7 @@ const AdminProduct = () => {
               <td>
                 {/* Add your actions here (e.g., Edit, Delete) */}
                 <Link to={`/admin/product/editproduct/${product._id}`} className={styles.actionButton}>Edit</Link>
-                <button className={styles.actionButton}>Delete</button>
+                {/* <button className={styles.actionButton}>Delete</button> */}
               </td>
             </tr>
           ))}
