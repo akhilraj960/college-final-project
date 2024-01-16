@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import axiosInstance from "../../../config/axiosInstance";
 
 const AdminUser = () => {
-  return (
-    <div>AdminUser</div>
-  )
-}
+  axiosInstance.get("/admin/getallusers").then((data) => {
+    console.log(data);
+  });
 
-export default AdminUser
+  return <div>AdminUser</div>;
+};
+
+export default AdminUser;

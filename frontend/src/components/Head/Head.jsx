@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Head.module.css";
 
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Head = () => {
   const navigate = useNavigate();
 
+  const { isLoggedIn, isAdmin } = useSelector((state) => state.auth);
+
+
+
   const handlLogout = (e) => {
     e.preventDefault();
-
 
     localStorage.setItem("token", "");
     navigate("/");
@@ -36,11 +40,11 @@ const Head = () => {
             <li>
               <Link to={"/register"}>Register</Link>
             </li>
-            <li>
-              <Link to={"/"} onClick={handlLogout}>
-                Logout
-              </Link>
-            </li>
+              <li>
+                <Link to={"/"} onClick={handlLogout}>
+                  Logout
+                </Link>
+              </li>
           </ul>
         </nav>
       </div>

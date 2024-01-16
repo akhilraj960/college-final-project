@@ -49,7 +49,7 @@ const AddCategory = () => {
           />
           <Button onClick={addCategory}>Add Category</Button>
         </div>
-        <div className={styles.inputcontainer}>
+        {/* <div className={styles.inputcontainer}>
           <Input
             label={"new  Sub category"}
             name={"name"}
@@ -58,7 +58,7 @@ const AddCategory = () => {
             onChange={(e) => setSubCategory(e.target.value)}
           />
           <Button onClick={addSubCategory}>Add Sub Category</Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
