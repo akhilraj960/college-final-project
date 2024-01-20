@@ -3,6 +3,7 @@ import styles from "./AddCategory.module.css";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const AddCategory = () => {
   const [category, setCategory] = useState("");
@@ -15,6 +16,7 @@ const AddCategory = () => {
     axiosInstance
       .post("/admin/addcategory", { category })
       .then((data) => {
+        toast.success("New Category Added");
         console.log(data);
       })
       .catch((error) => {

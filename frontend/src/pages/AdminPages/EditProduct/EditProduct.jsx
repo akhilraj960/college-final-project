@@ -6,6 +6,7 @@ import Select from "../../../components/Select/Select";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const EditProduct = (props) => {
   const [formData, setFormData] = useState({
@@ -97,6 +98,7 @@ const EditProduct = (props) => {
       .put(`/admin/editproduct/${id}`, formData)
       .then((data) => {
         console.log(data);
+        toast.success("Product Updated")
       })
       .catch((error) => {
         console.log(error);

@@ -4,6 +4,7 @@ import Input from "../../../components/Input/Input";
 import Select from "../../../components/Select/Select";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -81,6 +82,7 @@ const AddProduct = () => {
 
       // Optionally, you can handle the success here (e.g., show a success message)
       console.log("Product added successfully!");
+      toast.success("Product Add")
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error adding product:", error);
@@ -114,13 +116,13 @@ const AddProduct = () => {
               name={"category"}
               onChange={handleChange}
             />
-            <Select
+            {/* <Select
               label={"Sub Category"}
               option={subCategories}
               value={subcategory}
               name={"subcategory"}
               onChange={handleChange}
-            />
+            /> */}
             <Input
               label={"Description"}
               type={"text"}

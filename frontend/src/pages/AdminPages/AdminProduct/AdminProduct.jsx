@@ -33,7 +33,7 @@ const AdminProduct = () => {
             <th>discription</th>
             <th>brand</th>
             <th>Category</th>
-            <th>Subcategory</th>
+            {/* <th>Subcategory</th> */}
             <th>Price</th>
             <th>Discount</th>
             <th>stock</th>
@@ -49,7 +49,7 @@ const AdminProduct = () => {
               <td>{product.discription}</td>
               <td>{product.brand}</td>
               <td>{product.category}</td>
-              <td>{product.subCategory}</td>
+              {/* <td>{product.subCategory}</td> */}
               <td>${product.price}</td>
               <td>${product.discountAmount}</td>
               <td>${product.stock}</td>

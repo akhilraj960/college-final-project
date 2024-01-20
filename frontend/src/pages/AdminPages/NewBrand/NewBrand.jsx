@@ -3,6 +3,7 @@ import styles from "./NewBrand.module.css";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const NewBrand = () => {
   const [brand, setBrand] = useState("");
@@ -15,6 +16,7 @@ const NewBrand = () => {
       .post("/admin/createbrand", { brand })
       .then((data) => {
         console.log(data);
+        toast.success("New Brand Added")
       })
       .catch((error) => {
         console.log(error);

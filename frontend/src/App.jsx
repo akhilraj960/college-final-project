@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Head from "./components/Head/Head";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Register from "./pages/Auth/Register/Register";
 import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
@@ -49,6 +51,19 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
     </>
   );
 };
