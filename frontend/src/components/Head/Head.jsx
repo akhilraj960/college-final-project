@@ -9,14 +9,14 @@ const Head = () => {
 
   const { isLoggedIn, isAdmin } = useSelector((state) => state.auth);
 
-
-
   const handlLogout = (e) => {
     e.preventDefault();
-
     localStorage.setItem("token", "");
     navigate("/");
   };
+
+
+  useEffect(() => {}, [isLoggedIn]);
 
   return (
     <header>
@@ -34,17 +34,21 @@ const Head = () => {
             <li>
               <Link>Cart</Link>
             </li>
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <Link to={"/login"}>Login</Link>
+                </li>
+                <li>
+                  <Link to={"/register"}>Register</Link>
+                </li>
+              </>
+            )}
             <li>
-              <Link to={"/login"}>Login</Link>
+              <Link to={"/"} onClick={handlLogout}>
+                Logout
+              </Link>
             </li>
-            <li>
-              <Link to={"/register"}>Register</Link>
-            </li>
-              <li>
-                <Link to={"/"} onClick={handlLogout}>
-                  Logout
-                </Link>
-              </li>
           </ul>
         </nav>
       </div>

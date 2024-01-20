@@ -32,30 +32,25 @@ const userRegister = async (req, res) => {
 };
 
 const userLogin = async (req, res) => {
-  console.log(req.body);
   try {
     const { email, password } = req.body;
-
-    // Validation
     if (!email || !password) {
-      return res.status(400).send("Email and password are required");
+      return res
+        .status(400)
+        .json({ message: "Email and password are required", success: false });
     }
-
-    // Find the user by email
     const user = await User.findOne({ email });
-
-    // Check if the user exists
+    console.log(user)
     if (!user) {
-      return res.status(401).send("Invalid credentials");
+      return res
+        .status(401)
+        .json({ message: "Invalid credentials", success: false });
     }
-
-    // Compare the provided password with the stored password (plaintext in this case)
     if (password !== user.password) {
-      return res.status(401).send("Invalid credentials");
+      return res
+        .status(401)
+        .json({ message: "Invalid credentials", success: false });
     }
-
-    console.log(user);
-
     const userData = {
       _id: user._id,
       name: user.name,
@@ -64,8 +59,6 @@ const userLogin = async (req, res) => {
       phone: user.phone,
       addresses: user.addresses,
     };
-
-    // Generate a JWT token for authentication
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -73,9 +66,9 @@ const userLogin = async (req, res) => {
         expiresIn: "1h",
       }
     );
-
-    // Respond with the token or any additional user data
-    res.status(200).json({ token, userData });
+    res
+      .status(200)
+      .json({ token, userData, message: "Login Success", success: true });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -83,40 +76,28 @@ const userLogin = async (req, res) => {
 };
 
 const AdminLogin = async (req, res) => {
-  // console.log(req.body);
   try {
     const { email, password } = req.body;
-
-    // Validation
     if (!email || !password) {
       return res.status(400).send("Email and password are required");
     }
-
-    // Find the user by email
     const user = await Admin.findOne({ email });
-
-    // console.log(user);
-
-    // Check if the user exists
     if (!user) {
-      return res.status(401).send("Invalid credentials");
+      return res
+        .status(401)
+        .send({ message: "Invalid credentials", success: false });
     }
-
-    // Compare the provided password with the stored password (plaintext in this case)
     if (password !== user.password) {
-      return res.status(401).send("Invalid credentials");
+      return res
+        .status(401)
+        .send({ message: "Invalid credentials", success: false });
     }
-
-    // console.log(user)
-
     const userData = {
       _id: user._id,
       name: user.name,
       email,
       role: user.role,
     };
-
-    // Generate a JWT token for authentication
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -125,8 +106,9 @@ const AdminLogin = async (req, res) => {
       }
     );
 
-    // Respond with the token or any additional user data
-    res.status(200).json({ token, userData });
+    res
+      .status(200)
+      .json({ token, userData, message: "Login Success", success: true });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -138,18 +120,14 @@ const getStatus = async (req, res) => {
     const authHeader = req.headers.authorization;
     const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
     const token = matches ? matches[1] : null;
-
     if (!token) {
       return res.json({ success: false, message: "Login again" });
     }
-
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-        return res.json({ success: false, message: "Invalid token" });
+        return res.json({ success: false, message: "Login again" });
       }
-
-      const { userId, username, role } = decoded;
-
+      const { role } = decoded;
       return res.json({
         success: true,
         role: role,

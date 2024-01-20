@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authServices from "./authService"; // Assuming you have a module exporting login function
+import { toast } from "react-toastify";
 
 const initialState = {
   isAdmin: false,
@@ -55,9 +56,17 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
-        state.user = action.payload.user;
-        localStorage.setItem("token", action.payload.token);
+        if (action.payload.success) {
+          state.isLoggedIn = true;
+          state.user = action.payload.user;
+          console.log(action.payload);
+          toast.success(action.payload.message);
+          localStorage.setItem("token", action.payload.token);
+        }
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        toast.error(action.payload.message);
       })
       // adminLogin
       .addCase(adminLogin.fulfilled, (state, action) => {
@@ -68,10 +77,16 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.token);
       })
       .addCase(getStatus.fulfilled, (state, action) => {
-        if (action.payload.role === "admin") {
-          state.isAdmin = true;
+        if (action.payload.success) {
+          if (action.payload.role === "admin") {
+            state.isAdmin = true;
+          }
+          state.isLoggedIn = true;
         }
-        state.isLoggedIn = true;
+      })
+      .addCase(getStatus.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        console.log(action.payload);
       });
   },
 });

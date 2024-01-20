@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../FormStyles.module.css";
 
 import validator from "validator";
@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -18,8 +19,15 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { name, email, password, cPassword } = formData;
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +63,7 @@ const Register = () => {
       return;
     }
 
-    setErrorMessage(""); 
+    setErrorMessage("");
 
     try {
       const response = await axiosInstance.post("/register", formData);

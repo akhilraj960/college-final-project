@@ -39,7 +39,7 @@ const getStatus = (userData) => {
 const authServices = {
   login,
   adminLogin,
-  getStatus
+  getStatus,
 };
 
 export default authServices;

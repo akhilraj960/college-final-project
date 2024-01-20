@@ -18,6 +18,7 @@ import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
 import AddCategory from "./pages/AdminPages/AddCategory/AddCategory";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
+import HomePage from "./pages/HomePage/HomePage";
 
 const App = () => {
   const { isAdmin, isLoggedIn } = useSelector((state) => state.auth);
@@ -35,8 +36,9 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route path="/" element={<HomePage />} />
 
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="" element={<AdminDashBoard />} />
@@ -59,7 +61,7 @@ const App = () => {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
+        draggable={true}
         pauseOnHover
         theme="light"
         transition:Bounce
