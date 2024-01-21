@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+}
+
+.admincontainer {
+  padding: 1rem;
+  margin: 1rem;
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  overflow: scroll;
+}
+
+.admincontainer::-webkit-scrollbar {
+  display: none;
+}
+
+.outlet {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+}

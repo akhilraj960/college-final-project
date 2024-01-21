@@ -1,0 +1,23 @@
+.header {
+  background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header a {
+  color: white;
+}
+
+.header nav {
+  padding: 1rem;
+}
+
+.header nav ul {
+  display: flex;
+  gap: 2.6rem;
+  justify-content: space-evenly;
+}
+
+.header a {
+  text-transform: uppercase;
+}

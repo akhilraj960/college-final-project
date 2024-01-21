@@ -1,0 +1,18 @@
+.sidenav {
+  min-width: 250px;
+  height: 90vh;
+  position: sticky;
+  background-color: #010857;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.link {
+  color: white;
+  background-color: #0b0052;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}

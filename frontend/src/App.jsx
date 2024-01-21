@@ -6,19 +6,19 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./pages/Auth/Register/Register";
 import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
-import AdminLayout from "./pages/AdminPages/AdminLayout/AdminLayout";
 import AdminDashBoard from "./pages/AdminPages/AdminDashBoard/AdminDashBoard";
 import AdminUser from "./pages/AdminPages/AdminUsers/AdminUser";
 import { useDispatch, useSelector } from "react-redux";
-import ProductLayout from "./pages/AdminPages/ProductLayout/ProductLayout";
 import AdminOrder from "./pages/AdminPages/AdminOrder/AdminOrder";
-import AdminProduct from "./pages/AdminPages/AdminProduct/AdminProduct";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
 import AddCategory from "./pages/AdminPages/AddCategory/AddCategory";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
 import HomePage from "./pages/HomePage/HomePage";
 import { getStatus } from "./redux/features/Auth/authSlice";
+import AdminLayout from "./pages/AdminPages/Layouts/AdminLayout";
+import ProductLayout from "./pages/AdminPages/Layouts/ProductLayout";
+import AdminProduct from "./pages/AdminPages/AdminProduct";
 
 const App = () => {
   const dispatch = useDispatch();

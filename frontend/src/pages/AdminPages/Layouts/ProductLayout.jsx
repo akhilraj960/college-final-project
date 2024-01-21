@@ -1,8 +1,7 @@
 import React from "react";
-import styles from "./ProductLayout.module.css";
-import ProductHeader from "../../../components/Admin/ProductHeader/ProductHeader";
+import ProductHeader from "../Headers/ProductHeader";
+import styles from "./Layout.module.css";
 import { Outlet } from "react-router-dom";
-
 const ProductLayout = () => {
   return (
     <>
