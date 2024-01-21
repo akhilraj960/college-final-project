@@ -9,10 +9,9 @@ const AdminLayout = () => {
 
   useEffect(() => {
     if (!isAdmin) {
-      console.log(isAdmin);
       navigate("/admin/login");
     }
-  }, [isAdmin]);
+  });
 
   return (
     <>

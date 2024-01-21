@@ -25,7 +25,7 @@ const { getAllUsers } = require("./routes/adminRoutes");
 const connection = require("./db/connection");
 
 const app = express();
-
+ 
 const PORT = 5000;
 
 // DataBase Connection

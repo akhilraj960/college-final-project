@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../../redux/features/Auth/authSlice";
+// import { login } from "../../../redux/features/Auth/authSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +54,7 @@ const Login = () => {
     }
 
     setErrorMessage("");
-    dispatch(login(formData));
+    // dispatch(login(formData));
   };
   return (
     <div className={styles.formcontainer}>

@@ -102,19 +102,18 @@ const adminLogin = async (req, res) => {
     }
 
     const admin = await Admin.findOne({ email });
+    console.log(admin);
 
     if (!admin) {
-      return res
-        .status(401)
-        .json({ message: "Invalid credentials", success: false });
+      return res.json({ message: "Invalid credentials", success: false });
     }
 
-    const isPassword = bcrypt.hashSync(password, admin.password);
+    const isPassword = bcrypt.compareSync(password, admin.password);
+
+    console.log(isPassword);
 
     if (!isPassword) {
-      return res
-        .status(401)
-        .json({ message: "Invalid email or password", success: false });
+      return res.json({ message: "Invalid email or password", success: false });
     }
 
     const adminData = {

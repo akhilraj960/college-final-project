@@ -1,42 +1,52 @@
-import axiosInstance from "../../../config/axiosInstance";
+import axios from "axios";
 
-const login = (userData) => {
-  return axiosInstance
-    .post("/login", userData)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
-};
+import { baseUrl } from "../../../config/config";
+
+const token = localStorage.getItem("token");
+
+const axiosInstance = axios.create({
+  baseURL: `${baseUrl}/api/auth/`,
+  timeout: 5000,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+// const adminLogin = (userData) => {
+//   return axiosInstance
+//     .post("/admin/login", userData)
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       return error;
+//     });
+// };
 
 const adminLogin = (userData) => {
   return axiosInstance
-    .post("/admin/login", userData)
+    .post("/adminlogin", userData)
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       return error;
     });
 };
 
-const getStatus = (userData) => {
+const getStatus = () => {
   return axiosInstance
     .get("/getstatus")
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
-      console.error(error);
-      throw error;
+      return error;
     });
 };
 
 const authServices = {
-  login,
   adminLogin,
   getStatus,
 };

@@ -10,7 +10,6 @@ import AdminLayout from "./pages/AdminPages/AdminLayout/AdminLayout";
 import AdminDashBoard from "./pages/AdminPages/AdminDashBoard/AdminDashBoard";
 import AdminUser from "./pages/AdminPages/AdminUsers/AdminUser";
 import { useDispatch, useSelector } from "react-redux";
-import { getStatus } from "./redux/features/Auth/authSlice";
 import ProductLayout from "./pages/AdminPages/ProductLayout/ProductLayout";
 import AdminOrder from "./pages/AdminPages/AdminOrder/AdminOrder";
 import AdminProduct from "./pages/AdminPages/AdminProduct/AdminProduct";
@@ -19,10 +18,9 @@ import AddCategory from "./pages/AdminPages/AddCategory/AddCategory";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
 import HomePage from "./pages/HomePage/HomePage";
+import { getStatus } from "./redux/features/Auth/authSlice";
 
 const App = () => {
-  const { isAdmin, isLoggedIn } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,8 +32,8 @@ const App = () => {
       <Head />
 
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} /> */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route path="/" element={<HomePage />} />
