@@ -115,10 +115,17 @@ const authSlice = createSlice({
       })
       .addCase(getStatus.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
+        state.isSuccess = action.payload.data.success;
+        if (state.isSuccess) {
+          state.isLoggedIn = true;
+        }
+        if (state.isSuccess && action.payload.data.role === "admin") {
+          state.isAdmin = true;
+        }
       })
       .addCase(getStatus.rejected, (state, action) => {
         state.isLoading = false;
+        console.log(action.payload);
       });
     // GET STATUS ENDS
   },

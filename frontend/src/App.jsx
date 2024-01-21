@@ -23,9 +23,13 @@ import { getStatus } from "./redux/features/Auth/authSlice";
 const App = () => {
   const dispatch = useDispatch();
 
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    dispatch(getStatus());
-  }, []);
+    if (!isLoggedIn) {
+      dispatch(getStatus());
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
