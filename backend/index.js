@@ -2,14 +2,12 @@ const express = require("express");
 const fileUplaod = require("express-fileupload");
 const { default: mongoose } = require("mongoose");
 const cors = require("cors");
-const path = require('path')
+const path = require("path");
 require("dotenv").config();
-const {
-  userLogin,
-  userRegister,
-  AdminLogin,
-  getStatus,
-} = require("./routes/authRoutes");
+
+const AuthRouter = require("./router/authRoutes");
+
+
 const {
   addProduct,
   addCategory,
@@ -23,19 +21,15 @@ const {
   getOneProduct,
 } = require("./routes/productRoues");
 
+const { getAllUsers } = require("./routes/adminRoutes");
+const connection = require("./db/connection");
+
 const app = express();
 
 const PORT = 5000;
 
 // DataBase Connection
-mongoose
-  .connect("mongodb+srv://akhilrajkg88:vmLqKe2TfSCtwXBT@cluster0.mklvblj.mongodb.net/?retryWrites=true&w=majority")
-  .then((data) => {
-    console.log("DB Connected");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+connection();
 
 //   MiddleWares
 app.use(express.json());
@@ -43,16 +37,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(fileUplaod());
 
-// authRoutes
-app.post("/login", userLogin);
-app.post("/register", userRegister);
-app.get("/getstatus", getStatus);
+app.use("/api/auth", AuthRouter);
 
-app.post("/admin/login", AdminLogin);
 app.post("/admin/addproduct", addProduct);
 app.put("/admin/editproduct/:id", editProduct);
 app.get("/admin/getallproducts", getAllProducts);
-app.get("/admin/getoneproduct/:id",getOneProduct)
+app.get("/admin/getoneproduct/:id", getOneProduct);
+app.get("/admin/getallusers", getAllUsers);
 
 app.post("/admin/addcategory", addCategory);
 app.post("/admin/addsubcategory", addSubCategory);

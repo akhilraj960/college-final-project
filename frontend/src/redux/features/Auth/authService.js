@@ -19,8 +19,7 @@ const adminLogin = (userData) => {
       return response.data;
     })
     .catch((error) => {
-      console.error(error);
-      throw error;
+      return error;
     });
 };
 

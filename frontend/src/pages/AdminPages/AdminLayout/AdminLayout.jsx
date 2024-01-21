@@ -3,17 +3,16 @@ import styles from "./AdminLayout.module.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const AdminLayout = () => {
-
   const { isAdmin } = useSelector((state) => state.auth);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAdmin) {
-      console.log(isAdmin)
-      navigate('/admin/login');
+      console.log(isAdmin);
+      navigate("/admin/login");
     }
-  },[isAdmin]);
+  }, [isAdmin]);
 
   return (
     <>
@@ -30,7 +29,7 @@ const AdminLayout = () => {
           </Link>
           <Link to={"/admin/users"} className={styles.link}>
             Users
-          </Link>
+          </Link>{" "}
         </div>
         <div className={styles.admincontainer}>
           <Outlet />
