@@ -116,7 +116,7 @@ const addProduct = async (req, res) => {
       category: category,
       subCategory: subcategory,
       discountAmount: discountprice,
-      discription: description,
+      description: description,
       price: price,
       stock: stock,
       // Add other properties as needed

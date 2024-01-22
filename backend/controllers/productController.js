@@ -47,4 +47,31 @@ const updateProduct = (req, res) => {
   const { id } = req.params;
 };
 
-module.exports = { addProduct ,updateProduct};
+const activate = async (req, res) => {
+  const { id } = req.params;
+
+  await Product.findByIdAndUpdate(id, { status: true }, { new: true })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+const inActive = async (req, res) => {
+  const { id } = req.params;
+
+  await Product.findByIdAndUpdate(id, { status: false }, { new: true })
+    .then((response) => {
+      console.log(response);
+      return res.json({ success: true });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+module.exports = { addProduct, updateProduct, activate, inActive };
