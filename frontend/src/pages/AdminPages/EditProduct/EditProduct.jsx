@@ -62,6 +62,7 @@ const EditProduct = (props) => {
       .get("/getsubcategories")
       .then((response) => {
         setSubCategories(response.data.subcategories);
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching subcategories:", error);
@@ -98,7 +99,7 @@ const EditProduct = (props) => {
       .put(`/admin/editproduct/${id}`, formData)
       .then((data) => {
         console.log(data);
-        toast.success("Product Updated")
+        toast.success("Product Updated");
       })
       .catch((error) => {
         console.log(error);

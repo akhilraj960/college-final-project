@@ -6,7 +6,7 @@ const path = require("path");
 require("dotenv").config();
 
 const AuthRouter = require("./router/authRoutes");
-
+const ProductRouter = require("./router/productRoutes");
 
 const {
   addProduct,
@@ -25,7 +25,7 @@ const { getAllUsers } = require("./routes/adminRoutes");
 const connection = require("./db/connection");
 
 const app = express();
- 
+
 const PORT = 5000;
 
 // DataBase Connection
@@ -38,6 +38,7 @@ app.use(cors());
 app.use(fileUplaod());
 
 app.use("/api/auth", AuthRouter);
+app.use("/api/product", ProductRouter);
 
 app.post("/admin/addproduct", addProduct);
 app.put("/admin/editproduct/:id", editProduct);

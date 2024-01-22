@@ -12,10 +12,7 @@ const productSchema = new mongoose.Schema(
     brand: {
       type: String,
     },
-    subCategory: {
-      type: String,
-    },
-    discription: {
+    description: {
       type: String,
     },
     price: {
@@ -30,13 +27,16 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    status: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-// Corrected line: use mongoose.model to create the Product model
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

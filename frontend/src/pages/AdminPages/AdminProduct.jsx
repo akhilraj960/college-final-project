@@ -27,7 +27,7 @@ const AdminProduct = () => {
           <tr>
             <th>No</th>
             <th> name</th>
-            <th>discription</th>
+            <th>description</th>
             <th>brand</th>
             <th>Category</th>
             <th>Price</th>
@@ -43,10 +43,9 @@ const AdminProduct = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{product.name}</td>
-              <td>{product.discription}</td>
+              <td>{product.description}</td>
               <td>{product.brand}</td>
               <td>{product.category}</td>
-              {/* <td>{product.subCategory}</td> */}
               <td>${product.price}</td>
               <td>${product.discountAmount}</td>
               <td>${product.stock}</td>
