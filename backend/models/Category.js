@@ -7,8 +7,15 @@ const categorySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    description: {
+      type: String,
+    },
     status: {
       type: Boolean,
+    },
+    image: {
+      type: Buffer,
+      contentType: String,
     },
   },
   {

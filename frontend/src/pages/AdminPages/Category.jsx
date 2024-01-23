@@ -9,14 +9,14 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/api/product/category`)
+      .get(`${baseUrl}/api/category/category`)
       .then((response) => {
-        console.log(response.data.category);
         setCategory(response.data.category);
+        console.log(response.data.category)
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-        // Handle error (e.g., show an error message to the user)
+        F;
       });
   }, []);
 
@@ -40,6 +40,7 @@ const Category = () => {
           <tr>
             <th>No</th>
             <th>id</th>
+            <th>image</th>
             <th>name</th>
             <th>status</th>
             <th>Actions</th>
@@ -50,6 +51,9 @@ const Category = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{value._id}</td>
+              <td>
+                <img src={`data:image/jpeg;base64,+${value.image.data }`} alt="" />
+              </td>
               <td>{value.name}</td>
               <td>
                 {value.status ? (

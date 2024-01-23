@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 
 const AddCategory = () => {
   const [category, setCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
 
   const addCategory = (e) => {
     e.preventDefault();

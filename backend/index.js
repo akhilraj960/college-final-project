@@ -1,6 +1,5 @@
 const express = require("express");
 const fileUplaod = require("express-fileupload");
-const { default: mongoose } = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
@@ -9,21 +8,19 @@ const AuthRouter = require("./router/authRoutes");
 const ProductRouter = require("./router/productRoutes");
 const AdminRouter = require("./router/adminRoutes");
 const CategoryRouter = require("./router/categoryRoutes");
+const BrandRouter = require("./router/brandRoutes");
 
 const {
   addProduct,
   addCategory,
-  addSubCategory,
   createBrand,
   getBrand,
   getCategory,
-  getSubCategory,
   editProduct,
   getAllProducts,
   getOneProduct,
 } = require("./routes/productRoues");
 
-const { getAllUsers } = require("./routes/adminRoutes");
 const connection = require("./db/connection");
 
 const app = express();
@@ -43,21 +40,19 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/product", ProductRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api/category", CategoryRouter);
+app.use("/api/brand", BrandRouter);
 
 app.post("/admin/addproduct", addProduct);
 app.put("/admin/editproduct/:id", editProduct);
 app.get("/admin/getallproducts", getAllProducts);
 app.get("/admin/getoneproduct/:id", getOneProduct);
-app.get("/admin/getallusers", getAllUsers);
 
 app.post("/admin/addcategory", addCategory);
-app.post("/admin/addsubcategory", addSubCategory);
 
 app.post("/admin/createbrand", createBrand);
 
 app.get("/getbrand", getBrand);
 app.get("/getcategories", getCategory);
-app.get("/getsubcategories", getSubCategory);
 
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 

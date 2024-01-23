@@ -2,8 +2,6 @@ const Brand = require("../models/Brand");
 const Category = require("../models/Category");
 const Product = require("../models/Product");
 
-const SubCategory = require("../models/SubCategory");
-
 const addCategory = (req, res) => {
   console.log(req.body);
 
@@ -19,25 +17,6 @@ const addCategory = (req, res) => {
     })
     .catch((error) => {
       console.error("Error saving category:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    });
-};
-
-const addSubCategory = (req, res) => {
-  console.log(req.body);
-
-  const newSubCategory = new SubCategory({
-    name: req.body.subCategory,
-  });
-
-  newSubCategory
-    .save()
-    .then((data) => {
-      console.log("Subcategory saved successfully:", data);
-      res.status(201).json({ message: "Subcategory added successfully", data });
-    })
-    .catch((error) => {
-      console.error("Error saving subcategory:", error);
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
@@ -79,17 +58,6 @@ const getCategory = (req, res) => {
     })
     .catch((error) => {
       console.error("Error fetching categories:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    });
-};
-
-const getSubCategory = (req, res) => {
-  SubCategory.find()
-    .then((subcategories) => {
-      res.status(200).json({ subcategories });
-    })
-    .catch((error) => {
-      console.error("Error fetching subcategories:", error);
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
@@ -249,11 +217,9 @@ const getOneProduct = (req, res) => {
 module.exports = {
   addProduct,
   addCategory,
-  addSubCategory,
   createBrand,
   getBrand,
   getCategory,
-  getSubCategory,
   editProduct,
   getAllProducts,
   getOneProduct,

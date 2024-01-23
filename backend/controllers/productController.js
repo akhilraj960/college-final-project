@@ -76,10 +76,16 @@ const inActive = async (req, res) => {
     });
 };
 
-const getCagetories = async (req, res) => {
-  const category = await Category.find();
+const products = async (req, res) => {
+  const products = Product.find();
 
-  res.json({ success: true, category });
+  if (!products) {
+    return res
+      .status(404)
+      .json({ message: "product not found", success: false });
+  }
+
+  return res.json({ products, success: true });
 };
 
 module.exports = {
@@ -87,5 +93,5 @@ module.exports = {
   updateProduct,
   activate,
   inActive,
-  getCagetories,
+  products,
 };

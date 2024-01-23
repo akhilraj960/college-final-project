@@ -18,10 +18,12 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
+      default: 0,
     },
     stock: {
       type: Number,
       required: true,
+      default: 0,
     },
     discountAmount: {
       type: Number,
@@ -30,6 +32,10 @@ const productSchema = new mongoose.Schema(
     status: {
       type: Boolean,
       default: false,
+    },
+    image: {
+      data: Buffer,
+      contentType: String,
     },
   },
   {

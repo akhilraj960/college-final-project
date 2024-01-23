@@ -9,7 +9,6 @@ import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";
 import AdminOrder from "./pages/AdminPages/AdminOrder/AdminOrder";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
-import AddCategory from "./pages/AdminPages/AddCategory/AddCategory";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
 import HomePage from "./pages/HomePage/HomePage";
@@ -22,6 +21,7 @@ import Category from "./pages/AdminPages/Category";
 import AdminDashBoard from "./pages/AdminPages/AdminDashBoard";
 import UserLayout from "./pages/AdminPages/Layouts/UserLayout";
 import AdminUser from "./pages/AdminPages/AdminUser";
+import NewCategory from "./pages/AdminPages/NewCategory";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,7 +55,6 @@ const App = () => {
           <Route path="product" element={<ProductLayout />}>
             <Route path="" element={<AdminProduct />} />
             <Route path="addproduct" element={<AddProduct />} />
-            <Route path="category" element={<AddCategory />} />
             <Route path="createbrand" element={<NewBrand />} />
             <Route path="editproduct/:id" element={<EditProduct />} />
           </Route>
@@ -66,7 +65,7 @@ const App = () => {
 
           <Route path="category" element={<CategoryLayout />}>
             <Route path="" element={<Category />} />
-            <Route path="addcategory" element={<AddCategory />} />
+            <Route path="addcategory" element={<NewCategory />} />
           </Route>
 
           {/* CATEGORY ROUTES ENDS */}
