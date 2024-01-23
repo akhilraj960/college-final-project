@@ -1,3 +1,4 @@
+const Category = require("../models/Category");
 const Product = require("../models/Product");
 
 const addProduct = async (req, res) => {
@@ -53,6 +54,7 @@ const activate = async (req, res) => {
   await Product.findByIdAndUpdate(id, { status: true }, { new: true })
     .then((response) => {
       console.log(response);
+      return res.json({ success: true });
     })
     .catch((error) => {
       console.log(error);
@@ -74,4 +76,16 @@ const inActive = async (req, res) => {
     });
 };
 
-module.exports = { addProduct, updateProduct, activate, inActive };
+const getCagetories = async (req, res) => {
+  const category = await Category.find();
+
+  res.json({ success: true, category });
+};
+
+module.exports = {
+  addProduct,
+  updateProduct,
+  activate,
+  inActive,
+  getCagetories,
+};

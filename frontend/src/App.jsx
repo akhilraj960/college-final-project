@@ -6,8 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./pages/Auth/Register/Register";
 import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
-import AdminDashBoard from "./pages/AdminPages/AdminDashBoard/AdminDashBoard";
-import AdminUser from "./pages/AdminPages/AdminUsers/AdminUser";
 import { useDispatch, useSelector } from "react-redux";
 import AdminOrder from "./pages/AdminPages/AdminOrder/AdminOrder";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
@@ -19,6 +17,11 @@ import { getStatus } from "./redux/features/Auth/authSlice";
 import AdminLayout from "./pages/AdminPages/Layouts/AdminLayout";
 import ProductLayout from "./pages/AdminPages/Layouts/ProductLayout";
 import AdminProduct from "./pages/AdminPages/AdminProduct";
+import CategoryLayout from "./pages/AdminPages/Layouts/CategoryLayout";
+import Category from "./pages/AdminPages/Category";
+import AdminDashBoard from "./pages/AdminPages/AdminDashBoard";
+import UserLayout from "./pages/AdminPages/Layouts/UserLayout";
+import AdminUser from "./pages/AdminPages/AdminUser";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,13 +49,35 @@ const App = () => {
           <Route path="" element={<AdminDashBoard />} />
           <Route path="users" element={<AdminUser />} />
           <Route path="orders" element={<AdminOrder />} />
+
+          {/* PRODUCT ROUTES STARTS  */}
+
           <Route path="product" element={<ProductLayout />}>
             <Route path="" element={<AdminProduct />} />
             <Route path="addproduct" element={<AddProduct />} />
-            <Route path="addcategory" element={<AddCategory />} />
+            <Route path="category" element={<AddCategory />} />
             <Route path="createbrand" element={<NewBrand />} />
             <Route path="editproduct/:id" element={<EditProduct />} />
           </Route>
+
+          {/* PRODUCT ROUTES ENDS  */}
+
+          {/* CATEGORY ROUTES STARTS */}
+
+          <Route path="category" element={<CategoryLayout />}>
+            <Route path="" element={<Category />} />
+            <Route path="addcategory" element={<AddCategory />} />
+          </Route>
+
+          {/* CATEGORY ROUTES ENDS */}
+
+          {/* USER ROUTES STARTS  */}
+
+          <Route path="users" element={<UserLayout />}>
+            <Route path="" element={<AdminUser />} />
+          </Route>
+
+          {/* USER ROUTES ENDS  */}
         </Route>
       </Routes>
       <ToastContainer

@@ -7,6 +7,8 @@ require("dotenv").config();
 
 const AuthRouter = require("./router/authRoutes");
 const ProductRouter = require("./router/productRoutes");
+const AdminRouter = require("./router/adminRoutes");
+const CategoryRouter = require("./router/categoryRoutes");
 
 const {
   addProduct,
@@ -39,6 +41,8 @@ app.use(fileUplaod());
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/product", ProductRouter);
+app.use("/api/admin", AdminRouter);
+app.use("/api/category", CategoryRouter);
 
 app.post("/admin/addproduct", addProduct);
 app.put("/admin/editproduct/:id", editProduct);

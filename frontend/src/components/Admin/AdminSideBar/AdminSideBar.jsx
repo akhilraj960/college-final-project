@@ -18,6 +18,9 @@ const AdminSideBar = () => {
         <Link to={"/admin/users"} className={styles.link}>
           Users
         </Link>{" "}
+        <Link to={"/admin/category"} className={styles.link}>
+          Categories
+        </Link>{" "}
       </div>
     </div>
   );
