@@ -7,7 +7,6 @@ import Register from "./pages/Auth/Register/Register";
 import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";
-import AdminOrder from "./pages/AdminPages/AdminOrder/AdminOrder";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
 import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
@@ -22,6 +21,7 @@ import AdminDashBoard from "./pages/AdminPages/AdminDashBoard";
 import UserLayout from "./pages/AdminPages/Layouts/UserLayout";
 import AdminUser from "./pages/AdminPages/AdminUser";
 import NewCategory from "./pages/AdminPages/NewCategory";
+import AdminOrder from "./pages/AdminPages/AdminOrder";
 
 const App = () => {
   const dispatch = useDispatch();

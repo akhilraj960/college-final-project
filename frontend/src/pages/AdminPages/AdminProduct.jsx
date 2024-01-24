@@ -8,7 +8,6 @@ const AdminProduct = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch products from the API
     axiosInstance
       .get("/admin/getallproducts")
       .then((response) => {

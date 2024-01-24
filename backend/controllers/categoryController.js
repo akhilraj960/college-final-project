@@ -2,11 +2,8 @@ const Category = require("../models/Category");
 
 const addCategory = async (req, res) => {
   const { name, description } = req.body;
-  const { image } = await req.files;
 
-  console.log(image.data);
-
-  if (!name || !description || !image.data) {
+  if (!name || !description) {
     return res.status(400).json({
       message: "Invalid input data",
       success: false,
@@ -16,17 +13,26 @@ const addCategory = async (req, res) => {
   const newCategory = new Category({
     name: name,
     description: description,
-    image: image.data,
   });
 
-  newCategory
+  await newCategory
     .save()
     .then((response) => {
-      res.status(201).json({
-        message: "Category Added Successfully",
-        response,
-        success: true,
-      });
+      console.log(response);
+      const imagePath = `./public/category-images/${response._id}.jpg`;
+
+      if (req.files.image) {
+        req.files.image.mv(imagePath, (err) => {
+          if (!err) {
+            res.status(201).json({
+              message: "Category Added Successfully",
+              success: true,
+            });
+          } else {
+            res.status(500).json({ error: "Image upload faild" });
+          }
+        });
+      }
     })
     .catch((error) => {
       res

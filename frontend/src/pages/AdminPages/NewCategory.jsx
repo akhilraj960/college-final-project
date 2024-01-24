@@ -4,7 +4,7 @@ import axiosInstance from "../../config/axiosInstance";
 import Input from "../../components/Input/Input";
 import styles from "./Styles/NewCategory.module.css";
 import Button from "../../components/Button/Button";
-
+import { toast } from "react-toastify";
 const NewCategory = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -21,12 +21,19 @@ const NewCategory = () => {
       [name]: name === "image" ? files[0] : value,
     }));
   };
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance.post("/api/category/addcategory", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    axiosInstance
+      .post("/api/category/addcategory", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data.success);
+        if (response.data.success) {
+          toast.success(response.data.message);
+        }
+      });
   };
 
   return (

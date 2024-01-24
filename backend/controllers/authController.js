@@ -59,11 +59,15 @@ const userRegister = async (req, res) => {
     const { name, email, password, cPassword } = req.body;
 
     if (!name || !email || !password || !cPassword) {
-      return res.status(400).send("All fields are required");
+      return res
+        .status(400)
+        .json({ message: "All fields are required", success: false });
     }
 
     if (password !== cPassword) {
-      return res.status(400).send("Passwords do not match");
+      return res
+        .status(400)
+        .json({ message: "Password not match", success: false });
     }
 
     const hashPassword = await bcrypt.hashSync(password, 10);

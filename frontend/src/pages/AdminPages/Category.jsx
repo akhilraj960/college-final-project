@@ -12,7 +12,7 @@ const Category = () => {
       .get(`${baseUrl}/api/category/category`)
       .then((response) => {
         setCategory(response.data.category);
-        console.log(response.data.category)
+        console.log(response.data.category);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
@@ -39,7 +39,6 @@ const Category = () => {
         <thead>
           <tr>
             <th>No</th>
-            <th>id</th>
             <th>image</th>
             <th>name</th>
             <th>status</th>
@@ -50,9 +49,12 @@ const Category = () => {
           {category?.map((value, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{value._id}</td>
               <td>
-                <img src={`data:image/jpeg;base64,+${value.image.data }`} alt="" />
+                <img
+                  style={{ width: "75px", height: "auto" }}
+                  src={`http://localhost:5000/public/category-images/${value._id}.jpg`}
+                  alt={`Product ${index + 1}`}
+                />
               </td>
               <td>{value.name}</td>
               <td>
