@@ -8,7 +8,6 @@ import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
-import NewBrand from "./pages/AdminPages/NewBrand/NewBrand";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
 import HomePage from "./pages/HomePage/HomePage";
 import { getStatus } from "./redux/features/Auth/authSlice";
@@ -22,6 +21,9 @@ import UserLayout from "./pages/AdminPages/Layouts/UserLayout";
 import AdminUser from "./pages/AdminPages/AdminUser";
 import NewCategory from "./pages/AdminPages/NewCategory";
 import AdminOrder from "./pages/AdminPages/AdminOrder";
+import BrandLayout from "./pages/AdminPages/Layouts/BrandLayout";
+import Brands from "./pages/AdminPages/Brands";
+import NewBrand from "./pages/AdminPages/NewBrand";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,7 +57,6 @@ const App = () => {
           <Route path="product" element={<ProductLayout />}>
             <Route path="" element={<AdminProduct />} />
             <Route path="addproduct" element={<AddProduct />} />
-            <Route path="createbrand" element={<NewBrand />} />
             <Route path="editproduct/:id" element={<EditProduct />} />
           </Route>
 
@@ -77,6 +78,15 @@ const App = () => {
           </Route>
 
           {/* USER ROUTES ENDS  */}
+
+          {/* BRAND ROUTES STARTS  */}
+
+          <Route path="brand" element={<BrandLayout />}>
+            <Route path="" element={<Brands />} />
+            <Route path="newbrand" element={<NewBrand />} />
+          </Route>
+
+          {/* BRAND ROUTES ENDS  */}
         </Route>
       </Routes>
       <ToastContainer

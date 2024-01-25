@@ -21,6 +21,9 @@ const AdminSideBar = () => {
         <Link to={"/admin/category"} className={styles.link}>
           Categories
         </Link>{" "}
+        <Link to={"/admin/brand"} className={styles.link}>
+          Brands
+        </Link>{" "}
       </div>
     </div>
   );

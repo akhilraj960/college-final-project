@@ -8,6 +8,13 @@ const brandSchema = new Schema(
       required: true,
       unique: true,
     },
+    description: {
+      type: String,
+    },
+    status: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

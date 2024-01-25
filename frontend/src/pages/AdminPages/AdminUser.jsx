@@ -6,7 +6,8 @@ const AdminUser = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/admin/users")
+    axios
+      .get("http://localhost:5000/api/admin/users")
       .then((response) => {
         setUsers(response.data.users);
         console.log(response.data.users);
@@ -26,7 +27,6 @@ const AdminUser = () => {
         <thead>
           <tr>
             <th>No</th>
-            <th>id</th>
             <th>name</th>
             <th>email</th>
             <th>phone</th>
@@ -38,7 +38,6 @@ const AdminUser = () => {
           {users?.map((user, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{user._id}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.phone}</td>

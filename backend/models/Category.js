@@ -13,10 +13,6 @@ const categorySchema = new mongoose.Schema(
     status: {
       type: Boolean,
     },
-    image: {
-      type: Buffer,
-      contentType: String,
-    },
   },
   {
     timestamps: true,

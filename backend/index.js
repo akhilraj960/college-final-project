@@ -13,9 +13,6 @@ const BrandRouter = require("./router/brandRoutes");
 const {
   addProduct,
   addCategory,
-  createBrand,
-  getBrand,
-  getCategory,
   editProduct,
   getAllProducts,
   getOneProduct,
@@ -48,11 +45,6 @@ app.get("/admin/getallproducts", getAllProducts);
 app.get("/admin/getoneproduct/:id", getOneProduct);
 
 app.post("/admin/addcategory", addCategory);
-
-app.post("/admin/createbrand", createBrand);
-
-app.get("/getbrand", getBrand);
-app.get("/getcategories", getCategory);
 
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 
