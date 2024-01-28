@@ -6,28 +6,29 @@ import { baseUrl } from "../../config/config";
 
 const Category = () => {
   const [category, setCategory] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     axios
       .get(`${baseUrl}/api/category/category`)
       .then((response) => {
         setCategory(response.data.category);
-        console.log(response.data.category);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-        F;
       });
-  }, []);
+  }, [reload]);
 
   const activate = (id) => {
     axios.put(`${baseUrl}/api/category/status/active/` + id).then((data) => {
+      setReload((prevReload) => !prevReload);
       console.log(data);
     });
   };
 
   const inActivate = (id) => {
     axios.put(`${baseUrl}/api/category/status/inactive/` + id).then((data) => {
+      setReload((prevReload) => !prevReload);
       console.log(data);
     });
   };
@@ -41,6 +42,7 @@ const Category = () => {
             <th>No</th>
             <th>image</th>
             <th>name</th>
+            <th>description</th>
             <th>status</th>
             <th>Actions</th>
           </tr>
@@ -57,6 +59,7 @@ const Category = () => {
                 />
               </td>
               <td>{value.name}</td>
+              <td>{value.description}</td>
               <td>
                 {value.status ? (
                   <p style={{ color: "green" }}>Active</p>

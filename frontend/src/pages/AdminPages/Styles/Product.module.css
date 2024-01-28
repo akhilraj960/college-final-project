@@ -28,6 +28,7 @@ table th {
 table td {
   text-align: center;
   padding: 0.3rem 8rem;
+  font-size: .9rem;
 }
 
 table tbody tr td {

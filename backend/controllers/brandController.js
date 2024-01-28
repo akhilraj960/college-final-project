@@ -25,7 +25,7 @@ const newBrand = (req, res) => {
         req.files.image.mv(imagePath, (err) => {
           if (!err) {
             res.status(201).json({
-              message: "Category Added Successfully",
+              message: "brand Added Successfully",
               success: true,
             });
           } else {
@@ -51,4 +51,34 @@ const allBrands = async (req, res) => {
   res.status(200).json({ success: true, brands });
 };
 
-module.exports = { newBrand, allBrands };
+const activate = async (req, res) => {
+  const { id } = req.params;
+
+  await Brand.findByIdAndUpdate(id, { status: true }, { new: true })
+    .then((response) => {
+      return res.json({ message: "Updated", success: true });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+const inActive = async (req, res) => {
+  const { id } = req.params;
+
+  await Brand.findByIdAndUpdate(
+    id,
+    { message: "Updated", status: false },
+    { new: true }
+  )
+    .then((response) => {
+      return res.json({ success: true });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+module.exports = { newBrand, allBrands, activate, inActive };

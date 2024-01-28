@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "../FormStyles.module.css";
+import React, { useState } from "react";
+import styles from "./FormStyles.module.css";
 
 import validator from "validator";
 import { Link, useNavigate } from "react-router-dom";
-import Input from "../../../components/Input/Input";
-import Button from "../../../components/Button/Button";
-import axiosInstance from "../../../config/axiosInstance";
-import { useSelector } from "react-redux";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
+import axiosInstance from "../../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,22 +19,15 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { name, email, password, cPassword } = formData;
-  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validation checks
@@ -65,19 +58,26 @@ const Register = () => {
 
     setErrorMessage("");
 
-    try {
-      const response = await axiosInstance.post("/register", formData);
-      navigate("/login");
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    axiosInstance
+      .post("/api/auth/register", formData)
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          toast.success(response.data.message);
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <div className={styles.formcontainer}>
       <form onSubmit={handleSubmit}>
-        <div className={styles.title}>
+        <div>
           <h2>Sign Up</h2>
-          <p>welcome</p>
+          <p>Join Now</p>
         </div>
         {errorMessage && <div className={styles.errortext}>{errorMessage}</div>}
 

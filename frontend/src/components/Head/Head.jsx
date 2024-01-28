@@ -16,7 +16,7 @@ const Head = () => {
   };
 
 
-  useEffect(() => {}, [isLoggedIn]);
+
 
   return (
     <header>

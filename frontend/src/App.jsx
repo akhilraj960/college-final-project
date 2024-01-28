@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
-import Head from "./components/Head/Head";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Register from "./pages/Auth/Register/Register";
-import Login from "./pages/Auth/Login/Login";
 import AdminLogin from "./pages/AdminPages/AdminLogin/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";
 import AddProduct from "./pages/AdminPages/AddProduct/AddProduct";
 import EditProduct from "./pages/AdminPages/EditProduct/EditProduct";
-import HomePage from "./pages/HomePage/HomePage";
 import { getStatus } from "./redux/features/Auth/authSlice";
 import AdminLayout from "./pages/AdminPages/Layouts/AdminLayout";
 import ProductLayout from "./pages/AdminPages/Layouts/ProductLayout";
@@ -24,6 +20,10 @@ import AdminOrder from "./pages/AdminPages/AdminOrder";
 import BrandLayout from "./pages/AdminPages/Layouts/BrandLayout";
 import Brands from "./pages/AdminPages/Brands";
 import NewBrand from "./pages/AdminPages/NewBrand";
+import Register from "./pages/Auth/Register";
+import Login from "./pages/Auth/Login";
+import MainLayout from "./pages/Layouts/MainLayout";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,18 +38,18 @@ const App = () => {
 
   return (
     <>
-      <Head />
-
       <Routes>
-        {/* <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} /> */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+
+          <Route path="" element={<HomePage />} />
+        </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="" element={<AdminDashBoard />} />
-          <Route path="users" element={<AdminUser />} />
           <Route path="orders" element={<AdminOrder />} />
 
           {/* PRODUCT ROUTES STARTS  */}

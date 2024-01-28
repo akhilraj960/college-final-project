@@ -6,7 +6,7 @@ import axios from "axios";
 import { baseUrl } from "../../config/config";
 const AdminProduct = () => {
   const [products, setProducts] = useState([]);
-
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     axiosInstance
       .get("/admin/getallproducts")
@@ -17,16 +17,18 @@ const AdminProduct = () => {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, []);
+  }, [reload]);
 
   const activate = (id) => {
     axios.put(`${baseUrl}/api/product/status/activate/` + id).then((data) => {
+      setReload((prevReload) => !prevReload);
       console.log(data);
     });
   };
 
   const inActivate = (id) => {
     axios.put(`${baseUrl}/api/product/status/inactivate/` + id).then((data) => {
+      setReload((prevReload) => !prevReload);
       console.log(data);
     });
   };
@@ -68,7 +70,7 @@ const AdminProduct = () => {
               <td>{product.category}</td>
               <td>${product.price}</td>
               <td>${product.discountAmount}</td>
-              <td>${product.stock}</td>
+              <td>{product.stock}</td>
 
               <td>
                 {product.status ? (

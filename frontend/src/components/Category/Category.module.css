@@ -1,0 +1,36 @@
+.container {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 30px;
+  margin-top: 0.3rem;
+  overflow: scroll;
+  background-color: white;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.card p {
+  font-size: 0.8rem;
+}
+
+.cardimg {
+  max-width: 50px;
+  max-height: 50px;
+  height: auto;
+  object-fit: cover;
+  filter: opacity(0.5) drop-shadow(0 0 0 white);
+}
