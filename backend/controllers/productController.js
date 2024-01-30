@@ -44,8 +44,49 @@ const addProduct = async (req, res) => {
   }
 };
 
-const updateProduct = (req, res) => {
+const updateProduct = async (req, res) => {
   const { id } = req.params;
+
+  console.log(req.files.image);
+
+  const { name, category, brand, description, price, stock, discountAmount } =
+    req.body;
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        name: name,
+        brand: brand,
+        category: category,
+        description: description,
+        price: price,
+        discountAmount: discountAmount,
+        stock: stock,
+      },
+    },
+    { new: true }
+  );
+
+  if (!updatedProduct) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  if (req.files && req.files.image) {
+    const imagePath = `./public/product-images/${updatedProduct._id}.jpg`;
+
+    req.files.image.mv(imagePath, (err) => {
+      if (!err) {
+        console.log("Product updated successfully:");
+        return res
+          .status(200)
+          .json({ message: "Product updated successfully" });
+      } else {
+        console.error("Error uploading image:", err);
+        return res.status(500).json({ error: "Image upload failed" });
+      }
+    });
+  }
 };
 
 const activate = async (req, res) => {
@@ -77,15 +118,30 @@ const inActive = async (req, res) => {
 };
 
 const products = async (req, res) => {
-  const products = Product.find();
+  try {
+    const products = await Product.find();
 
-  if (!products) {
-    return res
-      .status(404)
-      .json({ message: "product not found", success: false });
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  return res.json({ products, success: true });
+const oneProduct = async (req, res) => {
+  const productId = req.params.id;
+
+  Product.findById(productId)
+    .then((product) => {
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      res.status(200).json({ product });
+    })
+    .catch((error) => {
+      console.error("Error fetching product:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
 };
 
 module.exports = {
@@ -94,4 +150,5 @@ module.exports = {
   activate,
   inActive,
   products,
+  oneProduct,
 };

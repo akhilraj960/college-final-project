@@ -60,7 +60,7 @@ const NewCategory = () => {
           name={"image"}
           onChange={handleChange}
         />
-        <Button type="submit">new category</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

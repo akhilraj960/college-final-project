@@ -24,6 +24,8 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import MainLayout from "./pages/Layouts/MainLayout";
 import HomePage from "./pages/HomePage";
+import EditCategory from "./pages/AdminPages/EditCategory";
+import EditBrand from "./pages/AdminPages/EditBrand";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,6 +69,7 @@ const App = () => {
           <Route path="category" element={<CategoryLayout />}>
             <Route path="" element={<Category />} />
             <Route path="addcategory" element={<NewCategory />} />
+            <Route path="editcategory/:id" element={<EditCategory />} />
           </Route>
 
           {/* CATEGORY ROUTES ENDS */}
@@ -84,6 +87,7 @@ const App = () => {
           <Route path="brand" element={<BrandLayout />}>
             <Route path="" element={<Brands />} />
             <Route path="newbrand" element={<NewBrand />} />
+            <Route path="editbrand/:id" element={<EditBrand />} />
           </Route>
 
           {/* BRAND ROUTES ENDS  */}

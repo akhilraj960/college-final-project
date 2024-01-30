@@ -28,6 +28,7 @@ const EditProduct = (props) => {
   const { id } = useParams();
 
   const {
+    productId,
     name,
     brand,
     category,
@@ -41,7 +42,7 @@ const EditProduct = (props) => {
 
   useEffect(() => {
     axiosInstance
-      .get("/getbrand")
+      .get("/api/brand/brands")
       .then((response) => {
         setBrands(response.data.brands);
       })
@@ -50,33 +51,24 @@ const EditProduct = (props) => {
       });
 
     axiosInstance
-      .get("/getcategories")
+      .get("/api/category/category")
       .then((response) => {
-        setCategories(response.data.categories);
+        setCategories(response.data.category);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
 
-    axiosInstance
-      .get("/getsubcategories")
-      .then((response) => {
-        setSubCategories(response.data.subcategories);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("Error fetching subcategories:", error);
-      });
-
-    axiosInstance.get(`/admin/getoneproduct/` + id).then((response) => {
-      console.log(response.data.product);
+    axiosInstance.get(`/api/product/oneproduct/` + id).then((response) => {
+      console.log(response);
       setFormData((prevData) => ({
         ...prevData,
+        productId: response.data.product._id,
         name: response.data.product.name,
         brand: response.data.product.brand,
         category: response.data.product.category,
         subcategory: "",
-        description: response.data.product.discription,
+        description: response.data.product.description,
         price: response.data.product.price || 0, // Set a default value or null
         discountprice: response.data.product.discountAmount || 0, // Set a default value or null
         stock: response.data.product.stock || 0, // Set a default value or null
@@ -96,7 +88,9 @@ const EditProduct = (props) => {
     e.preventDefault();
 
     axiosInstance
-      .put(`/admin/editproduct/${id}`, formData)
+      .put(`/api/product/updateproduct/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((data) => {
         console.log(data);
         toast.success("Product Updated");
@@ -133,13 +127,7 @@ const EditProduct = (props) => {
               name={"category"}
               onChange={handleChange}
             />
-            <Select
-              label={"Sub Category"}
-              option={subCategories}
-              value={subcategory}
-              name={"subcategory"}
-              onChange={handleChange}
-            />
+
             <Input
               label={"Description"}
               type={"text"}
@@ -168,6 +156,11 @@ const EditProduct = (props) => {
               value={stock}
               onChange={handleChange}
             />
+            <img
+              style={{ width: "75px", height: "auto" }}
+              src={`http://localhost:5000/public/product-images/${productId}.jpg`}
+              alt={`Product ${productId}`}
+            />
             <Input
               label={"Image"}
               type={"file"}
@@ -175,7 +168,7 @@ const EditProduct = (props) => {
               onChange={handleChange}
             />
           </div>
-          <Button type="submit">Edit product</Button>
+          <Button type="submit">Update</Button>
         </div>
       </form>
     </div>

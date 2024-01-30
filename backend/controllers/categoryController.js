@@ -47,6 +47,41 @@ const getCagetories = async (req, res) => {
   res.json({ success: true, category });
 };
 
+const updateCategory = async (req, res) => {
+  const { id } = req.params;
+
+  const { name, description } = req.body;
+
+  const updatedCategory = await Category.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        name: name,
+        description: description,
+      },
+    },
+    { new: true }
+  );
+
+  if (!updatedCategory) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  if (req.files && req.files.image) {
+    const imagePath = `./public/category-images/${updatedCategory._id}.jpg`;
+
+    req.files.image.mv(imagePath, (err) => {
+      if (!err) {
+        console.log("Brand updated successfully:");
+        return res.status(200).json({ message: "Brand updated successfully" });
+      } else {
+        console.error("Error uploading image:", err);
+        return res.status(500).json({ error: "Image upload failed" });
+      }
+    });
+  }
+};
+
 const activate = async (req, res) => {
   const { id } = req.params;
 
@@ -59,7 +94,7 @@ const activate = async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
- 
+
 const inActive = async (req, res) => {
   const { id } = req.params;
 
@@ -77,4 +112,28 @@ const inActive = async (req, res) => {
     });
 };
 
-module.exports = { activate, inActive, getCagetories, addCategory };
+const oneCategory = async (req, res) => {
+  const categoryId = req.params.id;
+
+  Category.findById(categoryId)
+    .then((category) => {
+      if (!category) {
+        return res
+          .status(404)
+          .json({ message: "Category Not Found", success: false });
+      }
+    })
+    .catch((error) => {
+      console.log("Error fetching category", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+module.exports = {
+  activate,
+  inActive,
+  getCagetories,
+  addCategory,
+  updateCategory,
+  oneCategory,
+};

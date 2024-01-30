@@ -51,6 +51,41 @@ const allBrands = async (req, res) => {
   res.status(200).json({ success: true, brands });
 };
 
+const updateBrand = async (req, res) => {
+  const { id } = req.params;
+
+  const { name, description } = req.body;
+
+  const updateBrand = await Brand.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        name: name,
+        description: description,
+      },
+    },
+    { new: true }
+  );
+
+  if (!updateBrand) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  if (req.files && req.files.image) {
+    const imagePath = `./public/brand-images/${updateBrand._id}.jpg`;
+
+    req.files.image.mv(imagePath, (err) => {
+      if (!err) {
+        console.log("Brand updated successfully:");
+        return res.status(200).json({ message: "Brand updated successfully" });
+      } else {
+        console.error("Error uploading image:", err);
+        return res.status(500).json({ error: "Image upload failed" });
+      }
+    });
+  }
+};
+
 const activate = async (req, res) => {
   const { id } = req.params;
 
@@ -81,4 +116,30 @@ const inActive = async (req, res) => {
     });
 };
 
-module.exports = { newBrand, allBrands, activate, inActive };
+const oneBrand = async (req, res) => {
+  const brandId = req.params.id;
+
+  Brand.findById(brandId)
+    .then((brand) => {
+      if (!brand) {
+        return res
+          .status(404)
+          .json({ message: "Brand Not Found", success: false });
+      }
+
+      res.status(200).json({ message: "Brand found", brand, success: true });
+    })
+    .catch((error) => {
+      console.log("Error fetching brand:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+module.exports = {
+  newBrand,
+  allBrands,
+  activate,
+  inActive,
+  updateBrand,
+  oneBrand,
+};

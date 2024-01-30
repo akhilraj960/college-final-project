@@ -10,14 +10,6 @@ const AdminRouter = require("./router/adminRoutes");
 const CategoryRouter = require("./router/categoryRoutes");
 const BrandRouter = require("./router/brandRoutes");
 
-const {
-  addProduct,
-  addCategory,
-  editProduct,
-  getAllProducts,
-  getOneProduct,
-} = require("./routes/productRoues");
-
 const connection = require("./db/connection");
 
 const app = express();
@@ -38,13 +30,6 @@ app.use("/api/product", ProductRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api/category", CategoryRouter);
 app.use("/api/brand", BrandRouter);
-
-app.post("/admin/addproduct", addProduct);
-app.put("/admin/editproduct/:id", editProduct);
-app.get("/admin/getallproducts", getAllProducts);
-app.get("/admin/getoneproduct/:id", getOneProduct);
-
-app.post("/admin/addcategory", addCategory);
 
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 

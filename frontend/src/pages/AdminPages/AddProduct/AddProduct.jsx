@@ -37,7 +37,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("/getbrand")
+      .get("/api/brand/brands")
       .then((response) => {
         setBrands(response.data.brands);
       })
@@ -46,21 +46,12 @@ const AddProduct = () => {
       });
 
     axiosInstance
-      .get("/getcategories")
+      .get("/api/category/category")
       .then((response) => {
-        setCategories(response.data.categories);
+        setCategories(response.data.category);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-      });
-
-    axiosInstance
-      .get("/getsubcategories")
-      .then((response) => {
-        setSubCategories(response.data.subcategories);
-      })
-      .catch((error) => {
-        console.error("Error fetching subcategories:", error);
       });
   }, []);
 
@@ -82,7 +73,7 @@ const AddProduct = () => {
 
       // Optionally, you can handle the success here (e.g., show a success message)
       console.log("Product added successfully!");
-      toast.success("Product Add")
+      toast.success("Product Add");
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error adding product:", error);

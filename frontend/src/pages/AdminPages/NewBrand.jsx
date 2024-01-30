@@ -39,7 +39,7 @@ const NewBrand = () => {
 
   return (
     <div className={styles.container}>
-      <h3>New Category</h3>
+      <h3>New Brand</h3>
       <form onSubmit={handleSubmit}>
         <Input
           label={"Brand Name"}
@@ -61,7 +61,7 @@ const NewBrand = () => {
           name={"image"}
           onChange={handleChange}
         />
-        <Button type="submit">new category</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

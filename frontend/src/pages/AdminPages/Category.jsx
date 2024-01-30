@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./Styles/AdminUsers.module.css";
-
+import { Link } from "react-router-dom";
 import { baseUrl } from "../../config/config";
 
 const Category = () => {
@@ -67,7 +67,14 @@ const Category = () => {
                   <p style={{ color: "red" }}>InActive</p>
                 )}
               </td>
-              <td>
+              <td className={styles.action}>
+                <Link
+                  to={`/admin/category/editcategory/:id`}
+                  className={styles.editbtn}
+                >
+                  Edit
+                </Link>
+
                 {value.status ? (
                   <button
                     onClick={() => inActivate(value._id)}

@@ -20,30 +20,22 @@ const NewProduct = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("/getbrand")
+      .get("/api/brand/brands")
       .then((response) => {
         setBrands(response.data.brands);
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching brands:", error);
       });
 
     axiosInstance
-      .get("/getcategories")
+      .get("/api/category/category")
       .then((response) => {
         setCategories(response.data.categories);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-      });
-
-    axiosInstance
-      .get("/getsubcategories")
-      .then((response) => {
-        setSubCategories(response.data.subcategories);
-      })
-      .catch((error) => {
-        console.error("Error fetching subcategories:", error);
       });
   }, []);
 

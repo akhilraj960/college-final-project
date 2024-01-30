@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Styles/AdminUsers.module.css";
 import axiosInstance from "../../config/axiosInstance";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const Brands = () => {
   const [brands, setBrands] = useState([]);
   const [reload, setReload] = useState(false);
@@ -65,7 +66,14 @@ const Brands = () => {
                   <p style={{ color: "red" }}>InActive</p>
                 )}
               </td>
-              <td>
+              <td className={styles.action}>
+                <Link
+                  to={`/admin/brand/editbrand/${value._id}`}
+                  className={styles.editbtn}
+                >
+                  Edit
+                </Link>
+
                 {value.status ? (
                   <button
                     onClick={() => inActivate(value._id)}

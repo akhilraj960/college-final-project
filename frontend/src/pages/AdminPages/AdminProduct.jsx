@@ -9,9 +9,8 @@ const AdminProduct = () => {
   const [reload, setReload] = useState(false);
   useEffect(() => {
     axiosInstance
-      .get("/admin/getallproducts")
+      .get("/api/product/products")
       .then((response) => {
-        console.log(response.data);
         setProducts(response.data.products);
       })
       .catch((error) => {
