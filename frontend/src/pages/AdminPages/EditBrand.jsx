@@ -4,6 +4,8 @@ import Input from "../../components/Input/Input";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../config/axiosInstance";
 import Button from "../../components/Button/Button";
+import { toast } from "react-toastify";
+import TextArea from "../../components/Input/TextArea";
 
 const EditBrand = () => {
   const [formData, setFormData] = useState({
@@ -29,8 +31,15 @@ const EditBrand = () => {
   useEffect(() => {
     axiosInstance
       .get("/api/brand/onebrand/" + id)
-      .then((response) => {
-        console.log(response);
+      .then(({ data }) => {
+        console.log(data);
+
+        setFormData((prevData) => ({
+          ...prevData,
+          id: data.brand._id,
+          name: data.brand.name,
+          description: data.brand.description,
+        }));
       })
       .catch((error) => {
         console.error("Error fetching Brand:", error);
@@ -41,9 +50,15 @@ const EditBrand = () => {
     e.preventDefault();
 
     axiosInstance
-      .post("/api/brand/updatebrand/" + id, formData)
+      .put("/api/brand/updatebrand/" + id, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((response) => {
         console.log(response);
+        toast.success("Brad Updated");
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   return (
@@ -59,13 +74,20 @@ const EditBrand = () => {
             value={name}
             onChange={handleChange}
           />
-          <Input
-            label={"Category description"}
+          <TextArea
+            label={"description"}
             name={"description"}
             type={"text"}
             value={description}
             onChange={handleChange}
           />
+
+          <img
+            style={{ width: "75px", height: "auto" }}
+            src={`http://localhost:5000/public/brand-images/${id}.jpg`}
+            alt={`Product ${id}`}
+          />
+
           <Input
             label={"Image"}
             type={"file"}

@@ -30,7 +30,8 @@
   box-shadow: 0 0 5px rgba(92, 144, 255, 0.7);
 }
 
-.textfield input{
+.textfield input,
+textarea {
   width: 100%;
   flex: 1;
   padding: 0.8rem;
@@ -39,6 +40,10 @@
   outline: none;
   background-color: transparent;
   color: #333;
+}
+
+textarea {
+  height: 150px;
 }
 
 .icon {

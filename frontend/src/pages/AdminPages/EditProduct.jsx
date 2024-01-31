@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./NewProduct.module.css";
+import TextArea from "../../components/Input/TextArea";
 
 const EditProduct = () => {
   return (
@@ -29,14 +30,14 @@ const EditProduct = () => {
               name={"category"}
               onChange={handleChange}
             />
-            <Select
+            {/* <Select
               label={"Sub Category"}
               option={subCategories}
               value={subcategory}
               name={"subcategory"}
               onChange={handleChange}
-            />
-            <Input
+            /> */}
+            <TextArea
               label={"Description"}
               type={"text"}
               name={"description"}

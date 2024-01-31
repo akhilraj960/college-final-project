@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditProduct.module.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../../components/Input/Input";
 import Select from "../../../components/Select/Select";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
 import axios from "axios";
 import { toast } from "react-toastify";
+import TextArea from "../../../components/Input/TextArea";
 
 const EditProduct = (props) => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,8 @@ const EditProduct = (props) => {
   const [subCategories, setSubCategories] = useState([]);
 
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const {
     productId,
@@ -94,6 +97,7 @@ const EditProduct = (props) => {
       .then((data) => {
         console.log(data);
         toast.success("Product Updated");
+        navigate("/admin/product");
       })
       .catch((error) => {
         console.log(error);
@@ -128,7 +132,7 @@ const EditProduct = (props) => {
               onChange={handleChange}
             />
 
-            <Input
+            <TextArea
               label={"Description"}
               type={"text"}
               name={"description"}

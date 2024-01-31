@@ -5,6 +5,7 @@ import Select from "../../../components/Select/Select";
 import Button from "../../../components/Button/Button";
 import axiosInstance from "../../../config/axiosInstance";
 import { toast } from "react-toastify";
+import TextArea from "../../../components/Input/TextArea";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -67,9 +68,13 @@ const AddProduct = () => {
     e.preventDefault();
 
     try {
-      await axiosInstance.post("/admin/addproduct", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axiosInstance
+        .post("/api/product/addproduct", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+          console.log(response);
+        });
 
       // Optionally, you can handle the success here (e.g., show a success message)
       console.log("Product added successfully!");
@@ -114,7 +119,7 @@ const AddProduct = () => {
               name={"subcategory"}
               onChange={handleChange}
             /> */}
-            <Input
+            <TextArea
               label={"Description"}
               type={"text"}
               name={"description"}

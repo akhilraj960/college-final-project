@@ -4,6 +4,7 @@ import styles from "./Styles/NewCategory.module.css";
 import Input from "../../components/Input/Input";
 import { toast } from "react-toastify";
 import Button from "../../components/Button/Button";
+import TextArea from "../../components/Input/TextArea";
 
 const NewBrand = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ const NewBrand = () => {
           value={name}
           onChange={handleChange}
         />
-        <Input
+        <TextArea
           label={"Brand description"}
           name={"description"}
           type={"text"}

@@ -47,8 +47,6 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
 
-  console.log(req.files.image);
-
   const { name, category, brand, description, price, stock, discountAmount } =
     req.body;
 
@@ -78,15 +76,16 @@ const updateProduct = async (req, res) => {
     req.files.image.mv(imagePath, (err) => {
       if (!err) {
         console.log("Product updated successfully:");
-        return res
-          .status(200)
-          .json({ message: "Product updated successfully" });
       } else {
         console.error("Error uploading image:", err);
         return res.status(500).json({ error: "Image upload failed" });
       }
     });
   }
+
+  return res
+    .status(200)
+    .json({ message: "Product updated successfully", success: true });
 };
 
 const activate = async (req, res) => {

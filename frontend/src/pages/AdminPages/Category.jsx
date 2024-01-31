@@ -69,7 +69,7 @@ const Category = () => {
               </td>
               <td className={styles.action}>
                 <Link
-                  to={`/admin/category/editcategory/:id`}
+                  to={`/admin/category/editcategory/${value._id}`}
                   className={styles.editbtn}
                 >
                   Edit
