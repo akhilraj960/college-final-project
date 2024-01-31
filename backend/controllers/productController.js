@@ -82,7 +82,7 @@ const updateProduct = async (req, res) => {
       }
     });
   }
-
+ 
   return res
     .status(200)
     .json({ message: "Product updated successfully", success: true });
