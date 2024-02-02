@@ -50,6 +50,10 @@ const App = () => {
           <Route path="" element={<HomePage />} />
         </Route>
 
+        {/* -------------------------------*/}
+        {/* ADMIN ROUTES CONTAINER STARTS  */}
+        {/* -------------------------------*/}
+
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="" element={<AdminDashBoard />} />
           <Route path="orders" element={<AdminOrder />} />

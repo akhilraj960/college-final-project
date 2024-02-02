@@ -13,20 +13,20 @@ const axiosInstance = axios.create({
   },
 });
 
-// const adminLogin = (userData) => {
-//   return axiosInstance
-//     .post("/admin/login", userData)
-//     .then((response) => {
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       return error;
-//     });
-// };
-
 const adminLogin = (userData) => {
   return axiosInstance
     .post("/adminlogin", userData)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+const userLogin = (userData) => {
+  return axiosInstance
+    .post("/login", userData)
     .then((response) => {
       return response;
     })
@@ -47,6 +47,7 @@ const getStatus = () => {
 };
 
 const authServices = {
+  userLogin,
   adminLogin,
   getStatus,
 };

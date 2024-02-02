@@ -135,6 +135,15 @@ const oneBrand = async (req, res) => {
     });
 };
 
+const activeBrands = async (req, res) => {
+  const brands = await Brand.aggregate([{ $match: { status: true } }]);
+
+  return res
+    .status(200)
+    .json({ message: "brands found success", brands, success: true });
+};
+
+
 module.exports = {
   newBrand,
   allBrands,
@@ -142,4 +151,5 @@ module.exports = {
   inActive,
   updateBrand,
   oneBrand,
+  activeBrands
 };

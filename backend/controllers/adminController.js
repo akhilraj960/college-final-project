@@ -9,5 +9,5 @@ const allUsers = async (req, res) => {
 
   return res.json({ users, success: true });
 };
-
+ 
 module.exports = { allUsers };

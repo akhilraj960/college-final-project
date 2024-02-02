@@ -129,7 +129,7 @@ const adminLogin = async (req, res) => {
 
     const token = jwt.sign(
       { _id: admin._id, name: admin.name, role: admin.role },
-      process.env.JWTADMIN_SECRET,
+      process.env.JWT_SECRET,
       {
         expiresIn: "1h",
       }
@@ -153,7 +153,7 @@ const getStatus = async (req, res) => {
       return res.json({ success: false, message: "Login again" });
     }
 
-    jwt.verify(token, process.env.JWTADMIN_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.json({ success: false, message: "Login again", err });
       }

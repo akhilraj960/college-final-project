@@ -34,7 +34,7 @@ const Head = () => {
             <li>
               <Link>Cart</Link>
             </li>
-            {!isLoggedIn && (
+            {!isLoggedIn ? (
               <>
                 <li>
                   <Link to={"/login"}>Login</Link>
@@ -43,12 +43,14 @@ const Head = () => {
                   <Link to={"/register"}>Register</Link>
                 </li>
               </>
-            )}
-            <li>
+            ):(
+              <li>
               <Link to={"/"} onClick={handlLogout}>
                 Logout
               </Link>
             </li>
+            )}
+           
           </ul>
         </nav>
       </div>

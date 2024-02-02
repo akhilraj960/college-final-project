@@ -1,4 +1,3 @@
-const Category = require("../models/Category");
 const Product = require("../models/Product");
 
 const addProduct = async (req, res) => {
@@ -82,7 +81,7 @@ const updateProduct = async (req, res) => {
       }
     });
   }
- 
+
   return res
     .status(200)
     .json({ message: "Product updated successfully", success: true });
@@ -143,6 +142,14 @@ const oneProduct = async (req, res) => {
     });
 };
 
+const activeProducts = async (req, res) => {
+  const products = await Product.aggregate([{ $match: { status: true } }]);
+
+  return res
+    .status(200)
+    .json({ message: "products found success", products, success: true });
+};
+
 module.exports = {
   addProduct,
   updateProduct,
@@ -150,4 +157,5 @@ module.exports = {
   inActive,
   products,
   oneProduct,
+  activeProducts
 };

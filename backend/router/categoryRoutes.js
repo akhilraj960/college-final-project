@@ -5,6 +5,7 @@ const {
   addCategory,
   updateCategory,
   oneCategory,
+  activeCategories,
 } = require("../controllers/categoryController");
 
 const router = require("express").Router();
@@ -15,5 +16,6 @@ router.put("/status/inactive/:id", inActive);
 router.get("/category", getCagetories);
 router.put("/updatecategory/:id", updateCategory);
 router.get("/onecategory/:id", oneCategory);
+router.get("/activecategories", activeCategories);
 
 module.exports = router;

@@ -32,6 +32,25 @@ const handleErrors = (state, action) => {
   }
 };
 
+export const userLogin = createAsyncThunk(
+  "auth/userLogin",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await authServices.userLogin(userData);
+      return response;
+    } catch (error) {
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const adminLogin = createAsyncThunk(
   "auth/adminLogin",
   async (userData, thunkAPI) => {
@@ -85,6 +104,32 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
+      // USER LOGIN STARTS
+
+      .addCase(userLogin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userLogin.fulfilled, (state, action) => {
+        // console.log(action.payload.data.userData);
+        state.isLoading = false;
+        state.isSuccess = action.payload.data.success;
+        state.message = action.payload.data.message;
+        if (state.isSuccess) {
+          state.isLoggedIn = true;
+          state.user = action.payload.data.userData;
+          toast.success(state.message);
+          localStorage.setItem("token", action.payload.data.token);
+        } else {
+          toast.success(state.message);
+        }
+      })
+      .addCase(userLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        console.log(action.payload);
+      })
+
+      // USER LOGIN ENDS
+
       // ADMIN LOGIN STARTS
       .addCase(adminLogin.pending, (state) => {
         state.isLoading = true;
@@ -122,6 +167,9 @@ const authSlice = createSlice({
         if (state.isSuccess && action.payload.data.role === "admin") {
           state.isAdmin = true;
         }
+
+        console.log(state.isSuccess)
+
       })
       .addCase(getStatus.rejected, (state, action) => {
         state.isLoading = false;

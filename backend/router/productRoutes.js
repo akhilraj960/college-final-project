@@ -5,6 +5,7 @@ const {
   inActive,
   oneProduct,
   products,
+  activeProducts,
 } = require("../controllers/productController");
 
 const router = require("express").Router();
@@ -15,6 +16,7 @@ router.put("/status/activate/:id", activate);
 router.put("/status/inactivate/:id", inActive);
 router.get("/oneproduct/:id", oneProduct);
 router.get('/products',products)
+router.get("/activeproducts",activeProducts)
 
 
 module.exports = router;

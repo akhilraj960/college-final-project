@@ -138,6 +138,15 @@ const oneCategory = async (req, res) => {
     });
 };
 
+const activeCategories = async (req, res) => {
+  const categories = await Category.aggregate([{ $match: { status: true } }]);
+
+  return res
+    .status(200)
+    .json({ message: "categories found success", categories, success: true });
+};
+
+
 module.exports = {
   activate,
   inActive,
@@ -145,4 +154,5 @@ module.exports = {
   addCategory,
   updateCategory,
   oneCategory,
+  activeCategories
 };

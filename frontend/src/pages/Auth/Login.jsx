@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import styles from "./FormStyles.module.css";
 import validator from "validator";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Input/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../redux/features/Auth/authSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +13,20 @@ const Login = () => {
     password: "",
   });
 
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const { email, password } = formData;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +53,8 @@ const Login = () => {
     }
 
     setErrorMessage("");
+
+    dispatch(userLogin(formData));
   };
 
   return (
