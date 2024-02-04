@@ -18,7 +18,7 @@ const userLogin = async (req, res) => {
 
     if (!user) {
       return res
-        .status(401)
+        .status(200)
         .json({ message: "Invalid credentials", success: false });
     }
 
@@ -144,6 +144,7 @@ const adminLogin = async (req, res) => {
 };
 
 const getStatus = async (req, res) => {
+  console.log("status")
   try {
     const authHeader = req.headers.authorization;
     const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);

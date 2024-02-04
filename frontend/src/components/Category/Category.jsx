@@ -9,10 +9,10 @@ const Category = () => {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get("/api/category/category").then((response) => {
-      setCategory(response.data.category);
+    axiosInstance.get("/api/category/activecategories").then((response) => {
+      setCategory(response.data.categories);
     });
-  });
+  }, []);
 
   return (
     <Carousel

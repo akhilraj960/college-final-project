@@ -96,6 +96,10 @@ const App = () => {
 
           {/* BRAND ROUTES ENDS  */}
         </Route>
+
+        {/* -------------------------------*/}
+        {/* ADMIN ROUTES CONTAINER ENDS  */}
+        {/* -------------------------------*/}
       </Routes>
       <ToastContainer
         position="bottom-right"

@@ -147,6 +147,7 @@ const authSlice = createSlice({
         } else {
           toast.error(state.message);
         }
+        console.log(action.payload)
       })
       .addCase(adminLogin.rejected, (state, action) => {
         state.isLoading = false;

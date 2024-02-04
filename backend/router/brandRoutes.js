@@ -15,7 +15,7 @@ router.get("/brands", allBrands);
 router.put("/status/active/:id", activate);
 router.put("/status/inactive/:id", inActive);
 router.put("/updatebrand/:id", updateBrand);
-router.get("/onebrand/:id", oneBrand);
+router.get("/onebrand/:id", oneBrand);  
 router.get("/activebrands",activeBrands)
 
 module.exports = router;

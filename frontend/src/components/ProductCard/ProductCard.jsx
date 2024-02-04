@@ -4,24 +4,22 @@ import { motion } from "framer-motion";
 import { shorttenText } from "../../utils";
 const ProductCard = ({ image, title, description, price, discountPrice }) => {
   return (
-    <div className={styles.cardcontainer}>
+    <div className={styles.cardContainer}>
       <motion.img
-        className={styles.cardimage}
+        className={styles.cardImage}
         src={image}
         alt={title}
         initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 1, scale: 0.8 }}
         transition={{ duration: 0.5 }}
         whileHover={{
-          scale: 1.2,
+          scale: 1,
           transition: { duration: 0.5 },
         }}
       />
       {/* <span>-10%</span> */}
-      <div className={styles.cardcontent}>
-        <p className={styles.title}>{title}</p>
-        <p className={styles.description}>{shorttenText(description, 18)} </p>
-        <div className={styles.pricecontainer}>
+      <div className={styles.cardContent}>
+        <div className={styles.priceContainer}>
           {discountPrice ? (
             <>
               <p className={styles.price}>
@@ -33,7 +31,13 @@ const ProductCard = ({ image, title, description, price, discountPrice }) => {
             <p className={styles.price}>{price}</p>
           )}
         </div>
-        <button className={styles.btn}>Add to Cart</button>
+        <p className={styles.title}>{shorttenText(title, 18)}</p>
+        <p className={styles.description}>{shorttenText(description, 18)} </p>
+
+        <div className={styles.btngroup}>
+          <button className={styles.buybtn}>Buy Now</button>
+          <button className={styles.btn}>Add To Cart</button>
+        </div>
       </div>
     </div>
   );
