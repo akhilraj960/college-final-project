@@ -1,0 +1,21 @@
+.container {
+    height: 300px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 300px;
+    margin-top: 0.3rem;
+    overflow: scroll;
+    background-color: white;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cardcontainer{
+    display: flex;
+    gap: 20px;
+  }

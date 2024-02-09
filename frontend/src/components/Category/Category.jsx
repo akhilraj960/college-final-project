@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Category.module.css";
-import image1 from "../../assets/image1.png";
 import axiosInstance from "../../config/axiosInstance";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";

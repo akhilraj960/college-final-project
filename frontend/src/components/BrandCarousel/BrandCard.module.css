@@ -1,0 +1,26 @@
+.container {
+  border: 1px solid #dddddd36;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  margin: 16px;
+}
+
+.image {
+  width: 100%;
+  width: 200px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 10px 0;
+}

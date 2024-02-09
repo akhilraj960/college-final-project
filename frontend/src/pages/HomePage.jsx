@@ -3,6 +3,8 @@ import Category from "../components/Category/Category";
 import ProductCard from "../components/ProductCard/ProductCard";
 import axiosInstance from "../config/axiosInstance";
 import styles from "./Styles/HomePage.module.css";
+import BrandCarousel from "../components/BrandCarousel/BrandCarousel";
+import BrandCard from "../components/BrandCarousel/BrandCard";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
 
@@ -11,8 +13,6 @@ const HomePage = () => {
       setProducts(data.products);
     });
   }, []);
-
-  console.log(products[0]);
 
   return (
     <div>
@@ -31,6 +31,13 @@ const HomePage = () => {
           );
         })}
       </div>
+
+      <BrandCarousel />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      
     </div>
   );
 };
