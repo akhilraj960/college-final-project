@@ -26,6 +26,7 @@ import MainLayout from "./pages/Layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import EditCategory from "./pages/AdminPages/EditCategory";
 import EditBrand from "./pages/AdminPages/EditBrand";
+import CartPage from "./pages/CartPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,10 +45,11 @@ const App = () => {
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route path="/" element={<MainLayout />}>
+          <Route path="" element={<HomePage />} />
+          <Route path="cart" element={<CartPage />} />
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
-          <Route path="" element={<HomePage />} />
         </Route>
 
         {/* -------------------------------*/}

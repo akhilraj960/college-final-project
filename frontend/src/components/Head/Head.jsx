@@ -2,21 +2,24 @@ import React, { useEffect } from "react";
 import styles from "./Head.module.css";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RESET_AUTH } from "../../redux/features/Auth/authSlice";
+import { toast } from "react-toastify";
 
 const Head = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { isLoggedIn, isAdmin } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const handlLogout = (e) => {
     e.preventDefault();
     localStorage.setItem("token", "");
+
+    dispatch(RESET_AUTH());
+    toast.success("Logout Success");
     navigate("/");
   };
-
-
-
 
   return (
     <header>
@@ -32,25 +35,21 @@ const Head = () => {
               <Link to={"/"}>Home</Link>
             </li>{" "}
             <li>
-              <Link>Cart</Link>
+              <Link to={"/cart"}>Cart</Link>
             </li>
             {!isLoggedIn ? (
               <>
                 <li>
                   <Link to={"/login"}>Login</Link>
                 </li>
-                <li>
-                  <Link to={"/register"}>Register</Link>
-                </li>
               </>
-            ):(
+            ) : (
               <li>
-              <Link to={"/"} onClick={handlLogout}>
-                Logout
-              </Link>
-            </li>
+                <Link to={"/"} onClick={handlLogout}>
+                  Logout
+                </Link>
+              </li>
             )}
-           
           </ul>
         </nav>
       </div>
