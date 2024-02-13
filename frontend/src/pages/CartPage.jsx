@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+import styles from "./Styles/Cart.module.css";
 
 const CartPage = () => {
-  return (
-    <div>CartPage</div>
-  )
-}
+  return <div className={styles.container}>
+    
+  </div>;
+};
 
-export default CartPage
+export default CartPage;
