@@ -27,17 +27,17 @@ const HomePage = () => {
               description={value.description}
               price={value.price}
               discountPrice={value.discountAmount}
+              id={value._id}
             />
           );
         })}
       </div>
 
       <BrandCarousel />
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

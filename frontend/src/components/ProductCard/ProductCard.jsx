@@ -2,7 +2,21 @@ import React from "react";
 import styles from "./ProductCard.module.css";
 import { motion } from "framer-motion";
 import { shorttenText } from "../../utils";
-const ProductCard = ({ image, title, description, price, discountPrice }) => {
+import axiosInstance from "../../config/axiosInstance";
+const ProductCard = ({
+  image,
+  title,
+  description,
+  price,
+  discountPrice,
+  id,
+}) => {
+  const handleAddToCart = (e) => {
+    axiosInstance.post(`/api/cart/${id}`).then((response) => {
+      console.log(response);
+    });
+  };
+
   return (
     <div className={styles.cardContainer}>
       <motion.img
@@ -36,7 +50,9 @@ const ProductCard = ({ image, title, description, price, discountPrice }) => {
 
         <div className={styles.btngroup}>
           <button className={styles.buybtn}>Buy Now</button>
-          <button className={styles.btn}>Add To Cart</button>
+          <button onClick={handleAddToCart} className={styles.btn}>
+            Add To Cart
+          </button>
         </div>
       </div>
     </div>

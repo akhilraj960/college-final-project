@@ -9,6 +9,7 @@ const ProductRouter = require("./router/productRoutes");
 const AdminRouter = require("./router/adminRoutes");
 const CategoryRouter = require("./router/categoryRoutes");
 const BrandRouter = require("./router/brandRoutes");
+const CartRouter = require('./router/cartRoutes.js')
 
 const connection = require("./db/connection");
 
@@ -30,6 +31,7 @@ app.use("/api/product", ProductRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api/category", CategoryRouter);
 app.use("/api/brand", BrandRouter);
+app.use("/api/cart", CartRouter);
 
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 

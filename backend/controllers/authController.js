@@ -144,7 +144,6 @@ const adminLogin = async (req, res) => {
 };
 
 const getStatus = async (req, res) => {
-  console.log("status")
   try {
     const authHeader = req.headers.authorization;
     const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
