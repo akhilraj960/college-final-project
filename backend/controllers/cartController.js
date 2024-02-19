@@ -1,27 +1,49 @@
+const Cart = require("../models/Cart");
 const Order = require("../models/Order");
+const jwt = require("jsonwebtoken");
 
-const order = (req, res) => {
-  const { userId, productId } = req.params;
+const addCart = (req, res) => {
+  const { id } = req.params;
+  const authHeader = req.headers.authorization;
+  const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
+  const token = matches ? matches[1] : null;
 
-  console.log(req.headers.authorization);
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({ success: false, message: "Login again", err });
+    }
 
-  const newOrder = new Order({
-    user: userId,
-    product: productId,
-  });
+    const { _id } = decoded;
 
-  newOrder
-    .save()
-    .then((data) => {
-      console.log(data);
-      res.status(200).json({ message: "Order Successfull", success: true });
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Internal Error", success: false });
-      console.log(error);
+    const newCart = new Cart({
+      user: _id,
+      product: id,
     });
+
+    newCart.save().then((data) => {
+      if (data) {
+        res.status(200).json({ message: "Added To Cart", success: true });
+      }
+    });
+  });
+};
+
+const CartItems = (req, res) => {
+  const { id } = req.params;
+  const authHeader = req.headers.authorization;
+  const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
+  const token = matches ? matches[1] : null;
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({ success: false, message: "Login again", err });
+    }
+
+    const { _id } = decoded;
+  });
 };
 
 module.exports = {
-  order,
+  addCart,
+  CartItems,
 };

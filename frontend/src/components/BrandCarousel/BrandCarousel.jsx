@@ -26,7 +26,7 @@ const BrandCarousel = () => {
       <div className={stlyes.cardcontainer}>
 
       {brands?.map((value, index) => (
-        <BrandCard
+        <BrandCard key={index}
         image={`http://localhost:5000/public/brand-images/${value._id}.jpg`}
 
           title={value.name}

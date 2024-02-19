@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Styles/Cart.module.css";
 import CartCard from "../components/Cart/CartCard";
+import axiosInstance from "../config/axiosInstance";
 
 const CartPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    axiosInstance.get("/api/cart/cartitems").then((response) => {
+      console.log(response);
+    });
+  });
+
   return (
     <div className={styles.container}>
       <CartCard
