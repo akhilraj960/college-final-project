@@ -160,8 +160,6 @@ const getStatus = async (req, res) => {
 
       const { name, role } = decoded;
 
-      console.log(name);
-
       return res.json({
         name: name,
         role: role,

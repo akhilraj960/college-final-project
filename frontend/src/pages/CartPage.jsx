@@ -2,28 +2,52 @@ import React, { useEffect, useState } from "react";
 import styles from "./Styles/Cart.module.css";
 import CartCard from "../components/Cart/CartCard";
 import axiosInstance from "../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    axiosInstance.get("/api/cart/cartitems").then((response) => {
-      console.log(response);
+    axiosInstance.get("/api/cart/cartitems").then(({ data }) => {
+      console.log(data.response);
+      setCartItems(data.response);
     });
-  });
+  }, [reload]);
+
+  const removeHandler = (pid) => {
+    axiosInstance.delete(`/api/cart/delete/${pid}`).then((response) => {
+      console.log(response.data.success);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setReload((prevReload) => !prevReload);
+      }
+    });
+  };
 
   return (
     <div className={styles.container}>
-      <CartCard
-        title={"Title"}
-        description={
-          "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
-        }
-        price={"1999"}
-        image={
-          "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-        }
-      />
+      {cartItems.length > 0 ? (
+        <>
+          {cartItems?.map((value, index) => {
+            return (
+              <CartCard
+                key={index}
+                title={value.product.title}
+                description={value.product.description}
+                price={value.product.price}
+                image={`http://localhost:5000/public/product-images/${value.product._id}.jpg`}
+                id={value._id}
+                handleRemove={() => removeHandler(value._id)}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <>
+          <p style={{ color: "red", textAlign: "center" }}>Cart is Empty</p>
+        </>
+      )}
     </div>
   );
 };
