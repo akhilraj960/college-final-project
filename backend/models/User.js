@@ -18,11 +18,8 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: "",
     },
-    addresses: [
+    address: [
       {
-        country: {
-          type: String,
-        },
         city: {
           type: String,
         },
@@ -34,9 +31,6 @@ const userSchema = new mongoose.Schema(
         },
         zipcode: {
           type: Number,
-        },
-        addressType: {
-          type: String,
         },
       },
     ],

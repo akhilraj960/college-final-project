@@ -3,6 +3,7 @@ import styles from "./ProductCard.module.css";
 import { motion } from "framer-motion";
 import { shorttenText } from "../../utils";
 import axiosInstance from "../../config/axiosInstance";
+import { useNavigate } from "react-router-dom";
 const ProductCard = ({
   image,
   title,
@@ -11,10 +12,16 @@ const ProductCard = ({
   discountPrice,
   id,
 }) => {
-  const handleAddToCart = (e) => {
+  const handleAddToCart = () => {
     axiosInstance.post(`/api/cart/${id}`).then((response) => {
       console.log(response);
     });
+  };
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/buy/${title}/${description}/${price}/${discountPrice}/${id}`);
   };
 
   return (
@@ -49,7 +56,9 @@ const ProductCard = ({
         <p className={styles.description}>{shorttenText(description, 18)} </p>
 
         <div className={styles.btngroup}>
-          <button className={styles.buybtn}>Buy Now</button>
+          <button className={styles.buybtn} onClick={handleNavigate}>
+            Buy Now
+          </button>
           <button onClick={handleAddToCart} className={styles.btn}>
             Add To Cart
           </button>

@@ -172,4 +172,28 @@ const getStatus = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, userRegister, adminLogin, getStatus };
+const profile = (req, res) => {
+  const authHeader = req.headers.authorization;
+  const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
+  const token = matches ? matches[1] : null;
+
+  if (!token) {
+    return res.json({ success: false, message: "Login again" });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({ success: false, message: "Login again", err });
+    }
+
+    const { _id } = decoded;
+
+    User.findById(_id)
+      .select("-password")
+      .then((data) => {
+        return res.json({ success: true, data });
+      });
+  });
+};
+
+module.exports = { userLogin, userRegister, adminLogin, getStatus, profile };

@@ -46,10 +46,22 @@ const getStatus = () => {
     });
 };
 
+const profile = () => {
+  return axiosInstance
+    .get("/profile")
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 const authServices = {
   userLogin,
   adminLogin,
   getStatus,
+  profile,
 };
 
 export default authServices;

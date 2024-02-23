@@ -147,7 +147,7 @@ const authSlice = createSlice({
         } else {
           toast.error(state.message);
         }
-        console.log(action.payload)
+        console.log(action.payload);
       })
       .addCase(adminLogin.rejected, (state, action) => {
         state.isLoading = false;
@@ -168,8 +168,6 @@ const authSlice = createSlice({
         if (state.isSuccess && action.payload.data.role === "admin") {
           state.isAdmin = true;
         }
-
-
       })
       .addCase(getStatus.rejected, (state, action) => {
         state.isLoading = false;

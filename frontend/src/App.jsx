@@ -27,6 +27,7 @@ import HomePage from "./pages/HomePage";
 import EditCategory from "./pages/AdminPages/EditCategory";
 import EditBrand from "./pages/AdminPages/EditBrand";
 import CartPage from "./pages/CartPage";
+import BuyPage from "./pages/BuyPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<HomePage />} />
           <Route path="cart" element={<CartPage />} />
+          <Route
+            path="buy/:title/:description/:price/:discountprice/:id"
+            element={<BuyPage />}
+          />
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
