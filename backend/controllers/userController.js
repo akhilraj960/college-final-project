@@ -2,7 +2,6 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const updateUser = (req, res) => {
   const { phone, address1, address2, city, zipcode } = req.body;
-  console.log(req.body);
 
   const authHeader = req.headers.authorization;
   const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
@@ -28,7 +27,6 @@ const updateUser = (req, res) => {
     User.findByIdAndUpdate(_id, updateObj)
       .select("-password")
       .then((data) => {
-        console.log(data);
         res.status(200).json({ data, message: "Order Placed", success: true });
       });
   });

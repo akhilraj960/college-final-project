@@ -11,6 +11,7 @@ const CategoryRouter = require("./router/categoryRoutes");
 const BrandRouter = require("./router/brandRoutes");
 const CartRouter = require("./router/cartRoutes");
 const UserRouter = require("./router/userRoutes");
+const OrderRouter = require("./router/orderRoutes");
 
 const connection = require("./db/connection");
 
@@ -22,10 +23,13 @@ const PORT = 5000;
 connection();
 
 //   MiddleWares
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(fileUplaod());
+
+// Routes
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/product", ProductRouter);
@@ -34,6 +38,7 @@ app.use("/api/category", CategoryRouter);
 app.use("/api/brand", BrandRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/user", UserRouter);
+app.use("/api/order", OrderRouter);
 
 app.use("/public", express.static(path.resolve(__dirname, "public")));
 

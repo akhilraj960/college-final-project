@@ -3,7 +3,11 @@ import styles from "./Styles/BuyPage.module.css";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import axiosInstance from "../config/axiosInstance";
-import { useParams } from "react-router-dom/dist/umd/react-router-dom.development";
+import { toast } from "react-toastify";
+import {
+  useNavigate,
+  useParams,
+} from "react-router-dom/dist/umd/react-router-dom.development";
 
 const BuyPage = () => {
   const { id } = useParams();
@@ -14,8 +18,9 @@ const BuyPage = () => {
     address2: "",
     city: "",
     zipcode: "",
-    productId: id,
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get("/api/auth/profile").then(({ data }) => {
@@ -43,7 +48,15 @@ const BuyPage = () => {
     e.preventDefault();
 
     axiosInstance.put("/api/user/update", formData).then(({ data }) => {
-      console.log(data);
+      if (data.success === true) {
+        axiosInstance.post(`/api/order/${id}`).then(({ data }) => {
+          console.log(data);
+          if ((data.success = true)) {
+            toast.success(data.message);
+            navigate("/cart");
+          }
+        });
+      }
     });
   };
 
