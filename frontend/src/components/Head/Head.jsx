@@ -14,8 +14,7 @@ const Head = () => {
 
   const handlLogout = (e) => {
     e.preventDefault();
-    localStorage.setItem("token", "");
-
+    localStorage.clear("token");
     dispatch(RESET_AUTH());
     toast.success("Logout Success");
     navigate("/");

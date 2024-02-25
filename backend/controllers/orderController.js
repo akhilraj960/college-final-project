@@ -37,7 +37,7 @@ const adminOrder = (req, res) => {
     {
       $match: {
         status: {
-          $ne: "delivered",
+          $ne: "delievered",
         },
       },
     },
@@ -79,9 +79,13 @@ const statusProcess = (req, res) => {
 const statusShipping = (req, res) => {
   const { id } = req.params;
 
-  Order.findByIdAndUpdate(id, { status: "shipping" }).then((data) => {
-    res.status(200).json({ message: "Shipping", success: true });
-  });
+  Order.findByIdAndUpdate(id, { status: "shipping" })
+    .then((data) => {
+      res.status(200).json({ message: "Shipping", success: true });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const statusDelivered = (req, res) => {

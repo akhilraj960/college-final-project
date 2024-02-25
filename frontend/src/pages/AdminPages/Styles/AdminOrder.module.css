@@ -33,3 +33,11 @@ table tbody tr:nth-child(odd) {
 table tbody tr:nth-child(even) {
   background-color: #2c3034;
 }
+
+.btn {
+  color: green;
+  background-color: black;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+}

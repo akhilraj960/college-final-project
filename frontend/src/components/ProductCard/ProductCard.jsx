@@ -15,6 +15,10 @@ const ProductCard = ({
   id,
 }) => {
   const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      toast.error("Login Please");
+      return navigate("/login");
+    }
     axiosInstance.post(`/api/cart/${id}`).then((response) => {
       console.log(response);
     });

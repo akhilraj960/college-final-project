@@ -4,12 +4,31 @@ import styles from "./Styles/AdminOrder.module.css";
 
 const AdminOrder = () => {
   const [orders, setOrders] = useState([]);
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     axiosInstance.get("/api/order/orders").then((data) => {
       console.log(data.data.data);
       setOrders(data.data.data);
     });
-  }, []);
+  }, [reload]);
+
+  const statusProcess = (id) => {
+    axiosInstance.put(`/api/order/statusprocess/${id}`).then((data) => {
+      setReload((prevReload) => !prevReload);
+    });
+  };
+
+  const statusShipping = (id) => {
+    axiosInstance.put(`/api/order/statusshipping/${id}`).then((data) => {
+      setReload((prevReload) => !prevReload);
+    });
+  };
+
+  const statusDelivered = (id) => {
+    axiosInstance.put(`/api/order/statusdelivered/${id}`).then((data) => {
+      setReload((prevReload) => !prevReload);
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -64,8 +83,30 @@ const AdminOrder = () => {
                   </td>
                 </td>
                 <td>
-                  {value.status === "pending" && <button>Proccess</button>}
-                  {value.status === "process" && <button>delievered</button>}
+                  {value.status === "pending" && (
+                    <button
+                      className={styles.btn}
+                      onClick={() => statusProcess(value._id)}
+                    >
+                      Proccess
+                    </button>
+                  )}
+                  {value.status === "processing" && (
+                    <button
+                      className={styles.btn}
+                      onClick={() => statusShipping(value._id)}
+                    >
+                      Shipping
+                    </button>
+                  )}
+                  {value.status === "shipping" && (
+                    <button
+                      className={styles.btn}
+                      onClick={() => statusDelivered(value._id)}
+                    >
+                      Delivered
+                    </button>
+                  )}
                 </td>
               </tr>
             );

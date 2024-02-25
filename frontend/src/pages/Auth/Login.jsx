@@ -61,7 +61,7 @@ const Login = () => {
     <div className={styles.formcontainer}>
       <form onSubmit={handleSubmit}>
         <div className={styles.title}>
-          <h2>Sign Up</h2>
+          <h2>Sign In</h2>
           <p>welcome</p>
         </div>
         {errorMessage && <div className={styles.errortext}>{errorMessage}</div>}
@@ -82,7 +82,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">Sign In</Button>
         <span>
           <p>
             Don't have an Account? <Link to={"/register"}>Register Now</Link>
