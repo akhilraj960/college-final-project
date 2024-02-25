@@ -10,7 +10,7 @@ const CartPage = () => {
 
   useEffect(() => {
     axiosInstance.get("/api/cart/cartitems").then(({ data }) => {
-      console.log(data.response);
+      console.log(data);
       setCartItems(data.response);
     });
   }, [reload]);
@@ -27,7 +27,7 @@ const CartPage = () => {
 
   return (
     <div className={styles.container}>
-      {cartItems.length > 0 ? (
+      {cartItems.length !== 0 ? (
         <>
           {cartItems?.map((value, index) => {
             return (

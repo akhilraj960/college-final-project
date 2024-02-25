@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { shorttenText } from "../../utils";
 import axiosInstance from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const ProductCard = ({
   image,
   title,
@@ -18,9 +20,16 @@ const ProductCard = ({
     });
   };
 
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
 
   const handleNavigate = () => {
+    if (!isLoggedIn) {
+      toast.error("Login Please");
+      return navigate("/login");
+    }
+
     navigate(`/buy/${title}/${description}/${price}/${discountPrice}/${id}`);
   };
 

@@ -181,16 +181,17 @@ const profile = (req, res) => {
     return res.json({ success: false, message: "Login again" });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       return res.json({ success: false, message: "Login again", err });
     }
 
     const { _id } = decoded;
 
-    User.findById(_id)
+    await User.findById(_id)
       .select("-password")
       .then((data) => {
+        console.log(data)
         return res.json({ success: true, data });
       });
   });

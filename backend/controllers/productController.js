@@ -150,6 +150,8 @@ const activeProducts = async (req, res) => {
     .json({ message: "products found success", products, success: true });
 };
 
+
+
 module.exports = {
   addProduct,
   updateProduct,

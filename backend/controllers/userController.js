@@ -7,6 +7,8 @@ const updateUser = (req, res) => {
   const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
   const token = matches ? matches[1] : null;
 
+  console.log(token);
+
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.json({ success: false, message: "Login again", err });
@@ -27,7 +29,9 @@ const updateUser = (req, res) => {
     User.findByIdAndUpdate(_id, updateObj)
       .select("-password")
       .then((data) => {
-        res.status(200).json({ data, message: "Order Placed", success: true });
+        res
+          .status(200)
+          .json({ data, message: "Profile updated", success: true });
       });
   });
 };

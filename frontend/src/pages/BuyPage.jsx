@@ -20,18 +20,25 @@ const BuyPage = () => {
     zipcode: "",
   });
 
+  const { phone, address1, address2, city, zipcode } = formData;
+
   const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get("/api/auth/profile").then(({ data }) => {
-      setFormData((prev) => ({
-        ...prev,
-        phone: data.data.phone,
-        address1: data.data.address[0].address1,
-        address2: data.data.address[0].address2,
-        zipcode: data.data.address[0].zipcode,
-        city: data.data.address[0].city,
-      }));
+      console.log(data);
+
+      if (data.data.address && data.data.address.length === 0) {
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          phone: data.data.phone || null,
+          address1: data.data.address[0].address1 || null,
+          address2: data.data.address[0].address2 || null,
+          zipcode: data.data.address[0].zipcode || null,
+          city: data.data.address[0].city || null,
+        }));
+      }
     });
   }, []);
 
@@ -47,13 +54,17 @@ const BuyPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!phone || !address1 || !address2 || !city || !zipcode) {
+      return toast.error("All Fields are required");
+    }
     axiosInstance.put("/api/user/update", formData).then(({ data }) => {
+      console.log(data)
       if (data.success === true) {
         axiosInstance.post(`/api/order/${id}`).then(({ data }) => {
           console.log(data);
           if ((data.success = true)) {
             toast.success(data.message);
-            navigate("/cart");
+            navigate("/orders");
           }
         });
       }

@@ -28,6 +28,8 @@ import EditCategory from "./pages/AdminPages/EditCategory";
 import EditBrand from "./pages/AdminPages/EditBrand";
 import CartPage from "./pages/CartPage";
 import BuyPage from "./pages/BuyPage";
+import Orders from "./pages/Orders";
+import OrderLayout from "./pages/AdminPages/Layouts/OrderLayout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -53,6 +55,8 @@ const App = () => {
             element={<BuyPage />}
           />
 
+          <Route path="/orders" element={<Orders />} />
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Route>
@@ -63,7 +67,6 @@ const App = () => {
 
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="" element={<AdminDashBoard />} />
-          <Route path="orders" element={<AdminOrder />} />
 
           {/* PRODUCT ROUTES STARTS  */}
 
@@ -102,6 +105,10 @@ const App = () => {
           </Route>
 
           {/* BRAND ROUTES ENDS  */}
+
+          <Route path="orders" element={<OrderLayout />}>
+            <Route path="" element={<AdminOrder />} />
+          </Route>
         </Route>
 
         {/* -------------------------------*/}

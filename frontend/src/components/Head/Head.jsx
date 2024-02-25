@@ -44,11 +44,17 @@ const Head = () => {
                 </li>
               </>
             ) : (
-              <li>
-                <Link to={"/"} onClick={handlLogout}>
-                  Logout
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to={"/orders"}>Orders</Link>
+                </li>
+
+                <li>
+                  <Link to={"/"} onClick={handlLogout}>
+                    Logout
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </nav>

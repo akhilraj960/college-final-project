@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const jwt = require("jsonwebtoken");
+
 const order = (req, res) => {
   const { id } = req.params;
 
@@ -31,4 +32,70 @@ const order = (req, res) => {
   });
 };
 
-module.exports = { order };
+const adminOrder = (req, res) => {
+  Order.aggregate([
+    {
+      $match: {
+        status: {
+          $ne: "delivered",
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "product",
+        foreignField: "_id",
+        as: "product",
+      },
+    },
+    {
+      $unwind: "$user",
+    },
+    {
+      $unwind: "$product",
+    },
+  ]).then((data) => {
+    res.status(200).json({ data, success: true });
+  });
+};
+
+const statusProcess = (req, res) => {
+  const { id } = req.params;
+
+  Order.findByIdAndUpdate(id, { status: "processing" }).then((data) => {
+    res.status(200).json({ message: "Processing", success: true });
+  });
+};
+
+const statusShipping = (req, res) => {
+  const { id } = req.params;
+
+  Order.findByIdAndUpdate(id, { status: "shipping" }).then((data) => {
+    res.status(200).json({ message: "Shipping", success: true });
+  });
+};
+
+const statusDelivered = (req, res) => {
+  const { id } = req.params;
+
+  Order.findByIdAndUpdate(id, { status: "delievered" }).then((data) => {
+    res.status(200).json({ message: "Delivered", success: true });
+  });
+};
+
+module.exports = {
+  order,
+  adminOrder,
+  statusProcess,
+  statusShipping,
+  statusDelivered,
+};

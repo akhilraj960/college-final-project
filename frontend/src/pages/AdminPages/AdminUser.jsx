@@ -14,7 +14,6 @@ const AdminUser = () => {
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
-        // Handle error (e.g., show an error message to the user)
       });
   }, []);
 
@@ -30,8 +29,6 @@ const AdminUser = () => {
             <th>name</th>
             <th>email</th>
             <th>phone</th>
-            {/* <th>role</th> */}
-            <th>address</th>
           </tr>
         </thead>
         <tbody>
@@ -41,8 +38,6 @@ const AdminUser = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.phone}</td>
-              {/* <td>{user.role}</td> */}
-              <td>{user.address}</td>
             </tr>
           ))}
         </tbody>
