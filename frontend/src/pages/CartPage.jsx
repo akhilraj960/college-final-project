@@ -33,11 +33,11 @@ const CartPage = () => {
             return (
               <CartCard
                 key={index}
-                title={value.product.title}
+                title={value.product.name}
                 description={value.product.description}
                 price={value.product.price}
                 image={`http://localhost:5000/public/product-images/${value.product._id}.jpg`}
-                id={value._id}
+                id={value.product._id}
                 handleRemove={() => removeHandler(value._id)}
               />
             );

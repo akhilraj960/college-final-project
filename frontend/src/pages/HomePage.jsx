@@ -18,7 +18,7 @@ const HomePage = () => {
     <div>
       <Category />
       <div className={styles.productcontainer}>
-        {products?.map((value, index) => {
+        {products?.map((value) => {
           return (
             <ProductCard
               key={value._id}

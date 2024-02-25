@@ -51,7 +51,7 @@ const App = () => {
           <Route path="" element={<HomePage />} />
           <Route path="cart" element={<CartPage />} />
           <Route
-            path="buy/:title/:description/:price/:discountprice/:id"
+            path="buy/:title/:description/:price/:id"
             element={<BuyPage />}
           />
 

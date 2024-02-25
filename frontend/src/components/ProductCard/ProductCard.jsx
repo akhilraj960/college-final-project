@@ -34,7 +34,7 @@ const ProductCard = ({
       return navigate("/login");
     }
 
-    navigate(`/buy/${title}/${description}/${price}/${discountPrice}/${id}`);
+    navigate(`/buy/${title}/${description}/${price}/${id}`);
   };
 
   return (

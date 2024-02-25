@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Order = require("../models/Order");
 const jwt = require("jsonwebtoken");
 
@@ -96,10 +97,56 @@ const statusDelivered = (req, res) => {
   });
 };
 
+const userOrders = (req, res) => {
+  const authHeader = req.headers.authorization;
+  const matches = authHeader && authHeader.match(/Bearer\s(\S+)/);
+  const token = matches ? matches[1] : null;
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({ success: false, message: "Login again", err });
+    }
+
+    const { _id } = decoded;
+
+    Order.aggregate([
+      {
+        $match: {
+          user: {
+            $eq: new mongoose.Types.ObjectId(_id),
+          },
+        },
+      },
+      {
+        $match: {
+          status: {
+            $ne: "delievered",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      {
+        $unwind: "$product",
+      },
+    ]).then((data) => {
+      console.log(data);
+      res.status(200).json({ data, success: true });
+    });
+  });
+};
+
 module.exports = {
   order,
   adminOrder,
   statusProcess,
   statusShipping,
   statusDelivered,
+  userOrders,
 };

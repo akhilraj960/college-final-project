@@ -12,6 +12,8 @@ import {
 const BuyPage = () => {
   const { id } = useParams();
 
+  console.log(id);
+
   const [formData, setFormData] = useState({
     phone: "",
     address1: "",
@@ -26,8 +28,6 @@ const BuyPage = () => {
 
   useEffect(() => {
     axiosInstance.get("/api/auth/profile").then(({ data }) => {
-      console.log(data);
-
       if (data.data.address && data.data.address.length === 0) {
       } else {
         setFormData((prev) => ({
@@ -51,6 +51,8 @@ const BuyPage = () => {
     });
   };
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,12 +60,12 @@ const BuyPage = () => {
       return toast.error("All Fields are required");
     }
     axiosInstance.put("/api/user/update", formData).then(({ data }) => {
-      console.log(data)
       if (data.success === true) {
         axiosInstance.post(`/api/order/${id}`).then(({ data }) => {
           console.log(data);
           if ((data.success = true)) {
             toast.success(data.message);
+            removeHandler(id);
             navigate("/orders");
           }
         });

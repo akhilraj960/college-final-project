@@ -1,0 +1,40 @@
+.container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cardcontainer {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgb(191, 220, 246);
+}
+
+.firstsection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.firstsection img {
+  width: 300px;
+  cursor: pointer;
+}
+
+.content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.cancelbtn {
+  padding: 0.4rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: rgb(255, 255, 255);
+}
